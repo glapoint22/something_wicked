@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Something Wicked</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="main.min.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/7e4ab6b203.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body ng-app="somethingWicked">
+    <div class="nav-bar">
+        <img class="logo" src="SomethingWickedLogo.png" />
+        <div class="nav-grp">
+            <a href="" class="nav">TOUR</a>
+            <a href="" class="nav">MUSIC</a>
+            <a href="" class="nav">VIDEOS</a>
+            <a href="" class="nav">PHOTOS</a>
+            <a href="" class="nav">BIOS</a>
+        </div>
+        <div class="mobile-menu">
+            <i class="fa fa-align-justify" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div ng-controller="ImageController">
+        <div class="main-img-container" set-height>
+            <div ng-repeat="image in images" class="main-img ng-hide" style="background-image: url({{image}})" ng-show="currentImage === $index"></div>
+            
+            <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            </div>
+
+
+            <div class="img-arrow-circle" style="right: 3%" ng-click="setImage(1)">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
