@@ -6,7 +6,8 @@ body {
 .nav-bar{
     height: 78px;
     width: 100%;
-    background-color: #2b4467;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0f1723), to(#2b4467));
+    background: linear-gradient(#0f1723, #2b4467);
     position: fixed;
     top: 0;
     z-index: 1000;
