@@ -16,12 +16,14 @@ using System.IO;
 public class SomethingWicked : System.Web.Services.WebService
 {
     [WebMethod]
-    public void GetImages()
+    public void GetSlideImages()
     {
-        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/Images").Select(file => "Images/" + Path.GetFileName(file)).ToArray();
+        //Grab all the images that are in the slide images folder
+        string imageFolder = "Slide_Images";
+        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + imageFolder).Select(file => imageFolder + "/" + Path.GetFileName(file)).ToArray();
 
+        //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();
         Context.Response.Write(js.Serialize(images));
     }
-
 }

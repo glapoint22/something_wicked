@@ -1,0 +1,28 @@
+@import 'NavigationBar';
+@import 'SlideImage';
+
+body {
+    margin: 0; 
+    background: #000; 
+    color: white;
+}
+@media screen and (max-width: 360px) {
+    .logo {
+        margin-left: 5vw;
+        height: 15vw;
+        top: 80%;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .nav{
+        visibility: hidden;
+    }
+    .mobile-menu{
+        visibility: visible;
+    }
+}
+
+
+
+
+

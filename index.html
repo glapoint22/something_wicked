@@ -8,10 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
-    <script src="script.js"></script>
+    <script src="somethingWicked.min.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body ng-app="somethingWicked">
+    <!--Navigation bar-->
     <div class="nav-bar">
         <img class="logo" src="SomethingWickedLogo.png" />
         <div class="nav-grp">
@@ -25,15 +26,18 @@
             <i class="fa fa-align-justify" aria-hidden="true"></i>
         </div>
     </div>
-    <div ng-controller="ImageController">
-        <div class="main-img-container" set-height>
-            <div ng-repeat="image in images" class="main-img ng-hide" style="background-image: url({{image}})" ng-show="currentImage === $index"></div>
+
+    <!--Slide-->
+    <div ng-controller="SlideController">
+        <div class="slide-img-container" set-height>
+            <div ng-repeat="image in images" class="slide-img ng-hide" style="background-image: url({{image}})" ng-show="currentImage === $index"></div>
             
+            <!--Left arrow-->
             <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </div>
 
-
+            <!--Right Arrow-->
             <div class="img-arrow-circle" style="right: 3%" ng-click="setImage(1)">
                 <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </div>

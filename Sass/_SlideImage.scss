@@ -1,0 +1,35 @@
+.slide-img-container{
+    width: 100%; 
+    margin-top: 80px; 
+    z-index: 100;
+    height: 56.25vw;
+    position: absolute;
+    .slide-img{
+        position: inherit;
+        background-size: cover; 
+        height: 100%; 
+        width: 100%;
+        -webkit-transition: all linear 0.5s;
+        transition: all linear 0.5s;
+        &.ng-hide{
+            opacity: 0;
+        }
+    }
+}
+.img-arrow-circle{
+    line-height: 40px; 
+    text-align: center; 
+    width:40px; 
+    height: 40px; 
+    background: rgba(0, 0, 0, 0.5); 
+    position: absolute; 
+    top: 22vw;
+    border-radius: 50%; 
+    cursor: pointer;
+}
+.img-arrow-circle:hover{
+    background-color: rgba(117, 117, 117, 0.50); 
+}
+.img-arrow-circle:active{
+    background-color: rgba(43, 68, 103, 0.50);
+}

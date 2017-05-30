@@ -1,0 +1,48 @@
+.nav-bar{
+    height: 78px;
+    width: 100%;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0f1723), to(#2b4467));
+    background: linear-gradient(#0f1723, #2b4467);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #f19c07;
+}
+.nav-grp{
+    width: 75%;
+    height: inherit;
+    text-align: right;
+}
+.nav{
+    padding: 20px;
+    text-decoration: none;
+    color: #f19c07;
+    line-height: 80px;
+    font-size: 20px;
+}
+.nav:visited{
+    color: #f19c07;
+}
+.nav:hover{
+    color: #f8c161;
+}
+.logo {
+    position: absolute;
+    top: 69%;
+    margin-top: -50px;
+    margin-left: 10vw;
+}
+.mobile-menu {
+    background: #f19c07;
+    height: 46px;
+    width: 46px;
+    position: relative;
+    top: -61px;
+    float: right;
+    margin-right: 15px;
+    font-size: 35px;
+    color: #2b4467;
+    visibility: hidden;
+    text-align: center;
+    line-height: 48px;
+}

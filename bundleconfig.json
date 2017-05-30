@@ -1,0 +1,9 @@
+[
+  {
+    "outputFileName": "somethingWicked.js",
+    "inputFiles": [
+      "Scripts/main.js",
+      "Scripts/slideImage.js"
+    ]
+  }
+]

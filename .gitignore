@@ -289,3 +289,10 @@ __pycache__/
 
 # Style sheets
 *.css
+
+# Scripts
+somethingWicked.js
+somethingWicked.min.js
+
+#Images
+Slide_Images/

@@ -1,6 +1,6 @@
 [
   {
     "outputFile": "style.css",
-    "inputFile": "main.scss"
+    "inputFile": "sass/Main.scss"
   }
 ]
