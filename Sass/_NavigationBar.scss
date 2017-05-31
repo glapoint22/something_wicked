@@ -1,12 +1,14 @@
+@import 'Utility';
+
 .nav-bar{
     height: 78px;
     width: 100%;
-    background: -webkit-gradient(linear, left top, left bottom, from(#0f1723), to(#2b4467));
-    background: linear-gradient(#0f1723, #2b4467);
+    background: -webkit-gradient(linear, left top, left bottom, from($color3), to($color2));
+    background: linear-gradient($color3, $color2);
     position: fixed;
     top: 0;
     z-index: 1000;
-    border-bottom: 2px solid #f19c07;
+    border-bottom: 2px solid $color1;
 }
 .nav-grp{
     width: 75%;
@@ -16,15 +18,15 @@
 .nav{
     padding: 20px;
     text-decoration: none;
-    color: #f19c07;
+    color: $color1;
     line-height: 80px;
     font-size: 20px;
 }
 .nav:visited{
-    color: #f19c07;
+    color: $color1;
 }
 .nav:hover{
-    color: #f8c161;
+    color: #ebd3a9;
 }
 .logo {
     position: absolute;
@@ -41,7 +43,7 @@
     float: right;
     margin-right: 15px;
     font-size: 35px;
-    color: #2b4467;
+    color: $color2;
     visibility: hidden;
     text-align: center;
     line-height: 48px;

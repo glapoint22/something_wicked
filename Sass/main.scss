@@ -1,11 +1,45 @@
 @import 'NavigationBar';
 @import 'SlideImage';
+@import 'Utility';
 
 body {
     margin: 0; 
     background: #000; 
     color: white;
 }
+td{
+    text-align: left;
+    border-top: 1px solid $color4;
+    padding: 20px 0 20px 10px;
+    color: #353535;
+}
+th{
+    text-align: left;
+    padding: 5px 0 5px 10px;
+    font-size: 30px;
+    color: black;
+    font-weight: normal;
+}
+.section{
+    background: #ede9e0;
+    width: 100%;
+    .section-content{
+        width: 60%; 
+        margin: auto; 
+        padding: 40px 0 60px 0;
+        .section-title{
+            font-size: 100px;
+            color: $color1;
+        }
+    }
+}
+
+table{
+    width: 100%; 
+    border-bottom: 2px solid $color1; 
+    border-top: 2px solid $color1;
+}
+
 @media screen and (max-width: 360px) {
     .logo {
         margin-left: 5vw;

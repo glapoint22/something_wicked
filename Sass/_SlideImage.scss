@@ -3,9 +3,9 @@
     margin-top: 80px; 
     z-index: 100;
     height: 56.25vw;
-    position: absolute;
+    position: relative;
     .slide-img{
-        position: inherit;
+        position: absolute;
         background-size: cover; 
         height: 100%; 
         width: 100%;
