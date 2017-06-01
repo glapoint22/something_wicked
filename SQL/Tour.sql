@@ -43,11 +43,3 @@ BEGIN
 	Schedule.VenueID = Venues.ID
 	WHERE datetime > CONVERT (DATE, GETDATE())
 END
-
-
-
-
-
-
-
-

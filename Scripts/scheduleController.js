@@ -1,10 +1,9 @@
 app.controller('ScheduleController', ['$scope', '$http', function ($scope, $http) {
     $http.get('SomethingWicked.asmx/GetSchedule').then(function (response) {
         var i, date;
-
         $scope.shows = [];
         
-        
+        //Populate the shows array
         for (i = 0; i < response.data.length; i++) {
             date = new Date(response.data[i].dateTime);
             $scope.shows.push({

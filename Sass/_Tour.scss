@@ -1,0 +1,25 @@
+th{
+    &.date{
+        min-width: 100px;
+    }
+    &.time{
+        min-width: 150px;
+    }
+    &.venue{
+        min-width: 200px;
+    }
+}
+@media screen and (max-width: 767px) {
+    th{
+        &.date, &.time, &.venue{
+            min-width: 70px;
+        }
+    }
+}
+@media screen and (max-width: 350px) {
+    th{
+        &.date, &.time, &.venue{
+            min-width: inherit;
+        }
+    }
+}

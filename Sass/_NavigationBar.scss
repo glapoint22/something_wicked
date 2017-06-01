@@ -48,3 +48,18 @@
     text-align: center;
     line-height: 48px;
 }
+@media screen and (max-width: 1200px) {
+    .nav{
+        visibility: hidden;
+    }
+    .mobile-menu{
+        visibility: visible;
+    }
+}
+@media screen and (max-width: 360px) {
+    .logo {
+        margin-left: 5vw;
+        height: 15vw;
+        top: 80%;
+    }
+}
