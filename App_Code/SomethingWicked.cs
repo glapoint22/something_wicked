@@ -1,10 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Services;
 using System.Web.Script.Serialization;
 using System.IO;
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 /// <summary>
 /// Summary description for SomethingWicked
@@ -26,4 +29,50 @@ public class SomethingWicked : System.Web.Services.WebService
         JavaScriptSerializer js = new JavaScriptSerializer();
         Context.Response.Write(js.Serialize(images));
     }
+
+
+    [WebMethod]
+    public void GetSchedule()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        List<Show> schedule = new List<Show>();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetSchedule", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Show show = new Show();
+                show.dateTime = (DateTime)rdr["DateTime"];
+                show.venue = rdr["Venue"].ToString();
+                show.location = rdr["Location"].ToString();
+                show.URL = rdr["URL"].ToString();
+                show.duration = (float)rdr.GetDouble(4);
+                schedule.Add(show);
+            }
+
+            con.Close();
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(schedule);
+        json = Regex.Replace(json, @"\""\\/Date\((\d+)\)\\/\""", "$1");
+        Context.Response.Write(json);
+    }
+
+}
+
+public struct Show
+{
+    public DateTime dateTime;
+    public string venue;
+    public string location;
+    public string URL;
+    public float duration;
 }

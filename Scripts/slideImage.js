@@ -6,10 +6,11 @@ app.controller('SlideController', ['$scope', '$interval', '$http', function ($sc
     //Get an array of images that will be displayed in the slide
     $http.get('SomethingWicked.asmx/GetSlideImages').then(function (response) {
         $scope.images = response.data;
+        //Begin the slide show
+        startSlide();
     });
 
-    //Begin the slide show
-    startSlide();
+    
 
     //This function starts the slide show
     function startSlide() {
@@ -61,4 +62,12 @@ app.directive('setHeight', function () {
             }
         }
     }
+})
+app.directive('backImg', function () {
+    return function (scope, element, attrs) {
+        var url = attrs.backImg;
+        element.css({
+            'background-image': 'url(' + url + ')',
+        });
+    };
 });

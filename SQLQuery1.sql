@@ -19,17 +19,35 @@ INSERT INTO Venues VALUES('Duffy''s Tavern', '20 Amherst St, Lake George, NY 128
 CREATE TABLE Schedule
 (
 	DateTime DATETIME PRIMARY KEY NOT NULL,
-	VenueID INT NOT NULL,
 	Duration FLOAT NOT NULL,
+	VenueID INT NOT NULL,
 	FOREIGN KEY (VenueID) REFERENCES Venues(ID)
 )
 
 
 
-INSERT INTO Schedule VALUES('20170616 08:00:00 PM', 1, 4)
-INSERT INTO Schedule VALUES('20170824 10:00:00 PM', 2, 4)
-INSERT INTO Schedule VALUES('20170825 10:00:00 PM', 2, 4)
-INSERT INTO Schedule VALUES('20170826 10:00:00 PM', 2, 4)
+INSERT INTO Schedule VALUES('20170616 08:00:00 PM', 4, 1)
+INSERT INTO Schedule VALUES('20170824 10:00:00 PM', 4, 2)
+INSERT INTO Schedule VALUES('20170825 10:00:00 PM', 4, 2)
+INSERT INTO Schedule VALUES('20170826 10:00:00 PM', 4, 2)
 
-select * from Schedule
-select * from venues
+
+
+CREATE PROC GetSchedule
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT DateTime, Name as Venue, Location, URL, Duration
+	FROM Schedule
+	INNER JOIN Venues ON
+	Schedule.VenueID = Venues.ID
+	WHERE datetime > CONVERT (DATE, GETDATE())
+END
+
+
+
+
+
+
+
+

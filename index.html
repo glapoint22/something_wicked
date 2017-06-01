@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
-    <script src="somethingWicked.min.js"></script>
+    <script src="somethingWicked.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body ng-app="somethingWicked">
@@ -30,7 +30,7 @@
     <!--Slide-->
     <div ng-controller="SlideController">
         <div class="slide-img-container" set-height>
-            <div ng-repeat="image in images" class="slide-img ng-hide" style="background-image: url({{image}})" ng-show="currentImage === $index"></div>
+            <div ng-repeat="image in images" class="slide-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
             
             <!--Left arrow-->
             <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
@@ -45,50 +45,27 @@
     </div>
 
     <!--Tour-->
-    <div class="section">
-        <div class="section-content">
-            <div class="section-title">TOUR</div>
-            <table cellspacing="0">
-                <tr>
-                    <th style="min-width: 100px">DATE</th>
-                    <th style="min-width: 150px">TIME</th>
-                    <th style="min-width: 200px">VENUE</th>
-                    <th>LOCATION</th>
-                </tr>
-                <tr>
-                    <td>JUN 16</td>
-                    <td>8 PM - 12 AM</td>
-                    <td>DOZER'S</td>
-                    <td><a target="_blank" href="https://www.google.com/maps/place/411+Geyser+Rd,+Ballston+Spa,+NY+12020/@43.047724,-73.8458277,17z/data=!3m1!4b1!4m5!3m4!1s0x89de477d344304cb:0xc57eb2f6e0b6b5a0!8m2!3d43.047724!4d-73.843639">411 GEYSER RD, BALLSTON SPA, NY 12020</a> </td>
-                </tr>
-                <tr>
-                    <td>AUG 24</td>
-                    <td>10 PM - 2 AM</td>
-                    <td>DUFFY'S TAVERN</td>
-                    <td> <a target="_blank" href="https://www.google.com/maps/place/20+Amherst+St,+Lake+George,+NY+12845/@43.4260694,-73.7139453,17z/data=!3m1!4b1!4m5!3m4!1s0x89dfc45acef6a037:0x9c8a3a729db8797a!8m2!3d43.4260694!4d-73.7117566">20 AMHERST ST, LAKE GEORGE, NY 12845</a></td>
-                </tr>
-                <tr>
-                    <td>AUG 25</td>
-                    <td>10 PM - 2 AM</td>
-                    <td>DUFFY'S TAVERN</td>
-                    <td> <a target="_blank" href="https://www.google.com/maps/place/20+Amherst+St,+Lake+George,+NY+12845/@43.4260694,-73.7139453,17z/data=!3m1!4b1!4m5!3m4!1s0x89dfc45acef6a037:0x9c8a3a729db8797a!8m2!3d43.4260694!4d-73.7117566">20 AMHERST ST, LAKE GEORGE, NY 12845</a></td>
-                </tr>
-                <tr>
-                    <td>AUG 26</td>
-                    <td>10 PM - 2 AM</td>
-                    <td>DUFFY'S TAVERN</td>
-                    <td> <a target="_blank" href="https://www.google.com/maps/place/20+Amherst+St,+Lake+George,+NY+12845/@43.4260694,-73.7139453,17z/data=!3m1!4b1!4m5!3m4!1s0x89dfc45acef6a037:0x9c8a3a729db8797a!8m2!3d43.4260694!4d-73.7117566">20 AMHERST ST, LAKE GEORGE, NY 12845</a></td>
-                </tr>
+    <div ng-controller="ScheduleController">
+        <div class="section">
+            <div class="section-content">
 
-
-               
-
-
-            </table>
+                <div class="section-title">TOUR</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th style="min-width: 100px">DATE</th>
+                        <th style="min-width: 150px">TIME</th>
+                        <th style="min-width: 200px">VENUE</th>
+                        <th>LOCATION</th>
+                    </tr>
+                    <tr ng-repeat="show in shows">
+                        <td>{{show.date | date: "MMMM d" | uppercase}}</td>
+                        <td>{{show.startTime | date: "h a"}} - {{show.endTime | date: "h a"}}</td>
+                        <td>{{show.venue.name | uppercase}}</td>
+                        <td><a target="_blank" href="{{show.venue.URL}}">{{show.venue.location | uppercase}}</a> </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-        
-    
-    
 </body>
 </html>
