@@ -44,9 +44,9 @@
         </div>
     </div>
 
+    
     <!--Tour-->
-    <div ng-controller="ScheduleController">
-        <div class="section">
+        <div class="section" ng-controller="ScheduleController">
             <div class="section-content">
                 <div class="section-title">TOUR</div>
                 <table cellspacing="0">
@@ -65,6 +65,29 @@
                 </table>
             </div>
         </div>
-    </div>
+        
+
+       <!--Music-->
+        <div id="music" ng-controller="MusicController" class="section">
+            <div class="section-content">
+                <div class="section-title">MUSIC</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
+                        <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
+                        <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
+                        <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
+                    </tr>
+                    <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
+                        <td>{{song.name | uppercase}}</td>
+                        <td>{{song.artist | uppercase}}</td>
+                        <td>{{song.genre | uppercase}}</td>
+                        <td>
+                            <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 </body>
 </html>

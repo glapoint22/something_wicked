@@ -66,7 +66,41 @@ public class SomethingWicked : System.Web.Services.WebService
         Context.Response.Write(json);
     }
 
+    [WebMethod]
+    public void GetMusic()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        List<Song> Songs = new List<Song>();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetMusic", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Song song = new Song();
+                song.name = rdr["Song"].ToString();
+                song.artist = rdr["Artist"].ToString();
+                song.genre = rdr["Genre"].ToString();
+                song.URL = rdr["URL"].ToString();
+                Songs.Add(song);
+            }
+
+            con.Close();
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(Songs);
+        Context.Response.Write(json);
+    }
+
 }
+
 
 public struct Show
 {
@@ -75,4 +109,12 @@ public struct Show
     public string location;
     public string URL;
     public float duration;
+}
+
+public struct Song
+{
+    public string name;
+    public string artist;
+    public string genre;
+    public string URL;
 }

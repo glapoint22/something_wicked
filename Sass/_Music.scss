@@ -1,0 +1,47 @@
+@import 'Utility';
+
+#music{
+    th{
+        cursor: pointer;
+    }
+}
+.arrow-up {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    float: right;
+    margin: 12px 5px 12px 5px;
+    border-bottom: 10px solid $color1;
+}
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    float: right;
+    margin: 12px 5px 12px 5px;
+    border-top: 10px solid $color1;
+}
+
+@media screen and (max-width: 767px) {
+    .arrow-up {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        margin: 6px 5px 6px 0;
+        border-bottom: 5px solid $color1;
+    }
+
+    .arrow-down {
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        margin: 6px 5px 6px 0;
+        border-top: 5px solid $color1;
+    }
+}
+
+@media screen and (max-width: 511px) {
+    .arrow-up, .arrow-down {
+        display: none;  
+    }
+}
