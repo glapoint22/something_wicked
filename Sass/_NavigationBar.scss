@@ -3,8 +3,7 @@
 .nav-bar{
     height: 78px;
     width: 100%;
-    background: -webkit-gradient(linear, left top, left bottom, from($color3), to($color2));
-    background: linear-gradient($color3, $color2);
+    @include gradient($color3, $color2);
     position: fixed;
     top: 0;
     z-index: 1000;

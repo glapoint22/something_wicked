@@ -22,7 +22,7 @@ public class SomethingWicked : System.Web.Services.WebService
     public void GetSlideImages()
     {
         //Grab all the images that are in the slide images folder
-        string imageFolder = "Slide_Images";
+        string imageFolder = "Images/Slide_Images";
         string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + imageFolder).Select(file => imageFolder + "/" + Path.GetFileName(file)).ToArray();
 
         //Serialize the images array to json and send the response

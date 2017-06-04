@@ -46,48 +46,62 @@
 
     
     <!--Tour-->
-        <div class="section" ng-controller="ScheduleController">
-            <div class="section-content">
-                <div class="section-title">TOUR</div>
-                <table cellspacing="0">
-                    <tr>
-                        <th class="date">DATE</th>
-                        <th class="time">TIME</th>
-                        <th class="venue">VENUE</th>
-                        <th>LOCATION</th>
-                    </tr>
-                    <tr ng-repeat="show in shows">
-                        <td>{{show.date | date: "MMMM d" | uppercase}}</td>
-                        <td>{{show.startTime | date: "h a"}} - {{show.endTime | date: "h a"}}</td>
-                        <td>{{show.venue.name | uppercase}}</td>
-                        <td><a target="_blank" href="{{show.venue.URL}}">{{show.venue.location | uppercase}}</a> </td>
-                    </tr>
-                </table>
-            </div>
+    <div class="section" ng-controller="ScheduleController">
+        <div class="section-content">
+            <div class="section-title">TOUR</div>
+            <table cellspacing="0">
+                <tr>
+                    <th class="date">DATE</th>
+                    <th class="time">TIME</th>
+                    <th class="venue">VENUE</th>
+                    <th>LOCATION</th>
+                </tr>
+                <tr ng-repeat="show in shows">
+                    <td>{{show.date | date: "MMMM d" | uppercase}}</td>
+                    <td>{{show.startTime | date: "h a"}} - {{show.endTime | date: "h a"}}</td>
+                    <td>{{show.venue.name | uppercase}}</td>
+                    <td><a target="_blank" href="{{show.venue.URL}}">{{show.venue.location | uppercase}}</a> </td>
+                </tr>
+            </table>
         </div>
+    </div>
         
 
-       <!--Music-->
-        <div id="music" ng-controller="MusicController" class="section">
-            <div class="section-content">
-                <div class="section-title">MUSIC</div>
-                <table cellspacing="0">
-                    <tr>
-                        <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
-                        <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
-                        <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
-                        <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
-                    </tr>
-                    <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
-                        <td>{{song.name | uppercase}}</td>
-                        <td>{{song.artist | uppercase}}</td>
-                        <td>{{song.genre | uppercase}}</td>
-                        <td>
-                            <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+    <!--Music-->
+    <div id="music" ng-controller="MusicController" class="section">
+        <div class="section-content">
+            <div class="section-title">MUSIC</div>
+            <table cellspacing="0">
+                <tr>
+                    <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
+                    <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
+                    <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
+                    <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
+                </tr>
+                <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
+                    <td>{{song.name | uppercase}}</td>
+                    <td>{{song.artist | uppercase}}</td>
+                    <td>{{song.genre | uppercase}}</td>
+                    <td>
+                        <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            </table>
         </div>
+    </div>
+
+
+    <!--Videos-->
+    <div id="videos" class="section">
+        <div class="section-content">
+            <div class="section-title">VIDEOS</div>
+            <ul>
+                <li>
+                    <a target="_blank" href="https://www.youtube.com/watch?v=XlH7y9NEu0c&feature=youtu.be" class="play"><img src="Images/Video_Images/Boogie-Oogie-Oogie.png" /></a>
+                    <div class="video-title">BOOGIE OOGIE OOGIE</div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
