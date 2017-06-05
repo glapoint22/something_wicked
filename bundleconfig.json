@@ -5,7 +5,8 @@
       "Scripts/main.js",
       "Scripts/slideImage.js",
       "Scripts/scheduleController.js",
-      "Scripts/musicController.js"
+      "Scripts/musicController.js",
+      "Scripts/videosController.js"
     ]
   }
 ]

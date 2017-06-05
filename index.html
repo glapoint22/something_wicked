@@ -92,16 +92,21 @@
 
 
     <!--Videos-->
-    <div id="videos" class="section">
+    <div id="videos" ng-controller="VideosController" class="section">
         <div class="section-content">
             <div class="section-title">VIDEOS</div>
             <ul>
-                <li>
-                    <a target="_blank" href="https://www.youtube.com/watch?v=XlH7y9NEu0c&feature=youtu.be" class="play"><img src="Images/Video_Images/Boogie-Oogie-Oogie.png" /></a>
-                    <div class="video-title">BOOGIE OOGIE OOGIE</div>
+                <li ng-repeat="video in videos">
+                    <a target="video" href="{{video.URL}}" class="play"><img src="{{video.thumbnail}}" /></a>
+                    <div class="video-title">{{video.title | uppercase}}</div>
                 </li>
             </ul>
         </div>
     </div>
+
+    <!--<div style="z-index: 20; background: red; position:fixed; top: 50%; left: 50%; margin-top: -400px; margin-left: -37.5vw; height: 800px; width: 75vw" name="video">
+        <iframe name="video" width="60%" height="60%" style="top: 25%; left: 20%; position: relative"></iframe>
+    </div>-->
+
 </body>
 </html>

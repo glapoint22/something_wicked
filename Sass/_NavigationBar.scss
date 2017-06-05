@@ -6,7 +6,7 @@
     @include gradient($color3, $color2);
     position: fixed;
     top: 0;
-    z-index: 1000;
+    z-index: 10;
     border-bottom: 2px solid $color1;
 }
 .nav-grp{

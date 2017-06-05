@@ -18,12 +18,15 @@ using System.Text.RegularExpressions;
 [System.Web.Script.Services.ScriptService]
 public class SomethingWicked : System.Web.Services.WebService
 {
+    private string videoImages = "Images/Video_Images/";
+    private string slideImages = "Images/Slide_Images";
+
+
     [WebMethod]
     public void GetSlideImages()
     {
         //Grab all the images that are in the slide images folder
-        string imageFolder = "Images/Slide_Images";
-        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + imageFolder).Select(file => imageFolder + "/" + Path.GetFileName(file)).ToArray();
+        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + "/" + Path.GetFileName(file)).ToArray();
 
         //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -70,7 +73,7 @@ public class SomethingWicked : System.Web.Services.WebService
     public void GetMusic()
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        List<Song> Songs = new List<Song>();
+        List<Song> songs = new List<Song>();
 
         using (SqlConnection con = new SqlConnection(cs))
         {
@@ -88,16 +91,53 @@ public class SomethingWicked : System.Web.Services.WebService
                 song.artist = rdr["Artist"].ToString();
                 song.genre = rdr["Genre"].ToString();
                 song.URL = rdr["URL"].ToString();
-                Songs.Add(song);
+                songs.Add(song);
             }
 
             con.Close();
         }
 
         JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(Songs);
+        string json = js.Serialize(songs);
         Context.Response.Write(json);
     }
+
+
+    [WebMethod]
+    public void GetVideos()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        List<Video> videos = new List<Video>();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetVideos", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Video video = new Video();
+                video.title = rdr["Title"].ToString();
+                video.thumbnail = rdr["Thumbnail"].ToString();
+                video.URL = rdr["URL"].ToString();
+                videos.Add(video);
+            }
+
+            con.Close();
+        }
+
+        
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(videos);
+        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", videoImages + "$1");
+        Context.Response.Write(json);
+    }
+
 
 }
 
@@ -116,5 +156,12 @@ public struct Song
     public string name;
     public string artist;
     public string genre;
+    public string URL;
+}
+
+public struct Video
+{
+    public string title;
+    public string thumbnail;
     public string URL;
 }
