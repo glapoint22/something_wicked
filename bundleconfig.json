@@ -6,7 +6,8 @@
       "Scripts/slideImage.js",
       "Scripts/scheduleController.js",
       "Scripts/musicController.js",
-      "Scripts/videosController.js"
+      "Scripts/videosController.js",
+      "Scripts/modalFrame.js"
     ]
   }
 ]
