@@ -1,27 +1,11 @@
 @import 'Utility';
 
-modal-frame{
-    iframe{
-        margin-top: 100px; 
-        left: 20%; 
-        position: relative; 
-        background: black;
-    }
-
+content-window{
     @include transition-timing(0.2s);
     &.ng-hide{
             opacity: 0;
         }
-    .modal-background{
-        background: rgba(0, 0, 0, 0.9); 
-        z-index: 10000; 
-        position: fixed; 
-        top: 0px; 
-        left: 0;
-        width: 100%; 
-        height: 100%;
-    }
-    .frame{
+    .window{
         z-index: 20; 
         background: #e2dfd6; 
         position: fixed; 
@@ -33,7 +17,7 @@ modal-frame{
         width: 75vw;
         border: 2px solid $color1;
     }
-    .frame-title{
+    .content-title{
         font-size: 50px; 
         text-align: center; 
         margin-top: 50px;
