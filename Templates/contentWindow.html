@@ -1,8 +1,10 @@
 <div >
-    <div class="window">
-        <i class="fa fa-window-close-o" aria-hidden="true"></i>
+    <div class="window ng-hide" ng-show="showContent">
+        <i class="fa fa-window-close-o" aria-hidden="true" ng-click="close()"></i>
         <div class="content-title">{{title}}</div>
         <hr />
-        <ng-transclude></ng-transclude>
+        <div style="width: 80%; height: 80%; background: black; margin: auto">
+            <ng-view></ng-view>
+        </div>
     </div>
 </div>

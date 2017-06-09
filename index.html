@@ -2,107 +2,112 @@
 <html>
 <head>
     <title>Something Wicked</title>
+    <base href="/" />
 	<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/7e4ab6b203.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
     <script src="somethingWicked.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body ng-app="somethingWicked">
-    <!--Navigation bar-->
-    <div class="nav-bar">
-        <img class="logo" src="SomethingWickedLogo.png" />
-        <div class="nav-grp">
-            <a href="" class="nav">TOUR</a>
-            <a href="" class="nav">MUSIC</a>
-            <a href="" class="nav">VIDEOS</a>
-            <a href="" class="nav">PHOTOS</a>
-            <a href="" class="nav">BIOS</a>
-        </div>
-        <div class="mobile-menu">
-            <i class="fa fa-align-justify" aria-hidden="true"></i>
-        </div>
-    </div>
-
-    <!--Slide-->
-    <div ng-controller="SlideController">
-        <div class="slide-img-container" set-height>
-            <div ng-repeat="image in images" class="slide-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
-            
-            <!--Left arrow-->
-            <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    <div ng-controller="MainController">
+        <!--Navigation bar-->
+        <div class="nav-bar">
+            <img class="logo" src="SomethingWickedLogo.png" />
+            <div class="nav-grp">
+                <a href="" class="nav">TOUR</a>
+                <a href="" class="nav">MUSIC</a>
+                <a href="" class="nav">VIDEOS</a>
+                <a href="" class="nav">PHOTOS</a>
+                <a href="" class="nav">BIOS</a>
             </div>
-
-            <!--Right Arrow-->
-            <div class="img-arrow-circle" style="right: 3%" ng-click="setImage(1)">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <div class="mobile-menu">
+                <i class="fa fa-align-justify" aria-hidden="true"></i>
             </div>
         </div>
-    </div>
 
+        <!--Slide-->
+        <div ng-controller="SlideController">
+            <div class="slide-img-container" set-height>
+                <div ng-repeat="image in images" class="slide-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
+
+                <!--Left arrow-->
+                <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </div>
+
+                <!--Right Arrow-->
+                <div class="img-arrow-circle" style="right: 3%" ng-click="setImage(1)">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Tour-->
+        <div class="section" ng-controller="ScheduleController">
+            <div class="section-content">
+                <div class="section-title">TOUR</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th class="date">DATE</th>
+                        <th class="time">TIME</th>
+                        <th class="venue">VENUE</th>
+                        <th>LOCATION</th>
+                    </tr>
+                    <tr ng-repeat="show in shows">
+                        <td>{{show.date | date: "MMMM d" | uppercase}}</td>
+                        <td>{{show.startTime | date: "h a"}} - {{show.endTime | date: "h a"}}</td>
+                        <td>{{show.venue.name | uppercase}}</td>
+                        <td><a target="_blank" href="{{show.venue.URL}}">{{show.venue.location | uppercase}}</a> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <!--Music-->
+        <div id="music" ng-controller="MusicController" class="section">
+            <div class="section-content">
+                <div class="section-title">MUSIC</div>
+                <table cellspacing="0">
+                    <tr>
+                        <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
+                        <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
+                        <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
+                        <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
+                    </tr>
+                    <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
+                        <td>{{song.name | uppercase}}</td>
+                        <td>{{song.artist | uppercase}}</td>
+                        <td>{{song.genre | uppercase}}</td>
+                        <td>
+                            <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+        <!--Videos-->
+        <div id="videos" ng-controller="VideosController" class="section">
+            <div class="section-content">
+                <div class="section-title">VIDEOS</div>
+                <ul>
+                    <li ng-repeat="video in videos">
+                        <div ng-click="showVideo(video.title | uppercase, video.URL)" class="play"><img ng-src="{{video.thumbnail}}" /></div>
+                        <div class="video-title">{{video.title | uppercase}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     
-    <!--Tour-->
-    <div class="section" ng-controller="ScheduleController">
-        <div class="section-content">
-            <div class="section-title">TOUR</div>
-            <table cellspacing="0">
-                <tr>
-                    <th class="date">DATE</th>
-                    <th class="time">TIME</th>
-                    <th class="venue">VENUE</th>
-                    <th>LOCATION</th>
-                </tr>
-                <tr ng-repeat="show in shows">
-                    <td>{{show.date | date: "MMMM d" | uppercase}}</td>
-                    <td>{{show.startTime | date: "h a"}} - {{show.endTime | date: "h a"}}</td>
-                    <td>{{show.venue.name | uppercase}}</td>
-                    <td><a target="_blank" href="{{show.venue.URL}}">{{show.venue.location | uppercase}}</a> </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-        
-
-    <!--Music-->
-    <div id="music" ng-controller="MusicController" class="section">
-        <div class="section-content">
-            <div class="section-title">MUSIC</div>
-            <table cellspacing="0">
-                <tr>
-                    <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
-                    <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
-                    <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
-                    <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
-                </tr>
-                <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
-                    <td>{{song.name | uppercase}}</td>
-                    <td>{{song.artist | uppercase}}</td>
-                    <td>{{song.genre | uppercase}}</td>
-                    <td>
-                        <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-
-    <!--Videos-->
-    <div id="videos" ng-controller="VideosController" class="section">
-        <div class="section-content">
-            <div class="section-title">VIDEOS</div>
-            <ul>
-                <li ng-repeat="video in videos">
-                    <div ng-click="showVideo(video.title | uppercase, video.URL)" class="play"><img ng-src="{{video.thumbnail}}" /></div>
-                    <div class="video-title">{{video.title | uppercase}}</div>
-                </li>
-            </ul>
-        </div>
-    </div>
 
     
 </body>

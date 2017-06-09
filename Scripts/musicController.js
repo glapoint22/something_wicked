@@ -1,3 +1,4 @@
+//------------------------------------------------------------------------------Music Controller-------------------------------------------------------------------------------------
 app.controller('MusicController', ['$scope', '$http', function ($scope, $http) {
     //Initialize the sorting properties
     $scope.sortColumn = 'name';

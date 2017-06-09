@@ -1,10 +1,6 @@
 @import 'Utility';
 
 content-window{
-    @include transition-timing(0.2s);
-    &.ng-hide{
-            opacity: 0;
-        }
     .window{
         z-index: 20; 
         background: #e2dfd6; 
@@ -16,6 +12,10 @@ content-window{
         height: 800px; 
         width: 75vw;
         border: 2px solid $color1;
+        @include transition-timing(0.5s);
+    &.ng-hide{
+            opacity: 0;
+        }
     }
     .content-title{
         font-size: 50px; 

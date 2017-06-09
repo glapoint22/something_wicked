@@ -1,3 +1,4 @@
+//------------------------------------------------------------------------------Schedule Controller-------------------------------------------------------------------------------------
 app.controller('ScheduleController', ['$scope', '$http', function ($scope, $http) {
     $http.get('SomethingWicked.asmx/GetSchedule').then(function (response) {
         var i, date;

@@ -63,6 +63,7 @@ app.directive('setHeight', function () {
         }
     }
 })
+//------------------------------------------------------------------------------Back Img Directive-------------------------------------------------------------------------------------
 app.directive('backImg', function () {
     return function (scope, element, attrs) {
         var url = attrs.backImg;
