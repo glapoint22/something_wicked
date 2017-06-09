@@ -1,9 +1,13 @@
-<div >
-    <div class="window ng-hide" ng-show="showContent">
-        <i class="fa fa-window-close-o" aria-hidden="true" ng-click="close()"></i>
-        <div class="content-title">{{title}}</div>
-        <hr />
-        <div style="width: 80%; height: 80%; background: black; margin: auto">
+<div class="window-background ng-hide" ng-show="showWindow" ng-click="close()">
+    <div class="window">
+        <div class="title-bar">
+            <div class="content-title">{{title}}
+                <span class="close-button" ng-click="close()">X</span>
+            </div>
+        </div>
+        
+        
+        <div style="width: 90%; height: 90%; background: black; margin: auto; position: relative; top: 10px">
             <ng-view></ng-view>
         </div>
     </div>

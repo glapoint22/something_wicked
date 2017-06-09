@@ -99,6 +99,7 @@ public class SomethingWicked : System.Web.Services.WebService
 
         JavaScriptSerializer js = new JavaScriptSerializer();
         string json = js.Serialize(songs);
+        json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
         Context.Response.Write(json);
     }
 

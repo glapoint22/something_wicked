@@ -86,7 +86,7 @@
                         <td>{{song.artist | uppercase}}</td>
                         <td>{{song.genre | uppercase}}</td>
                         <td>
-                            <a ng-show="song.URL !== ''" target="_blank" href="{{song.URL}}"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                            <span ng-show="song.URL !== ''" ng-click="showVideo(song.name | uppercase, song.URL)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
                         </td>
                     </tr>
                 </table>

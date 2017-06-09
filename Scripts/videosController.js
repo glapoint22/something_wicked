@@ -4,6 +4,8 @@ app.controller('VideosController', ['$scope', '$http', 'contentWindow', '$locati
     $http.get('SomethingWicked.asmx/GetVideos').then(function (response) {
         $scope.videos = response.data;
     });
+
+    //Show the video in the content window
     $scope.showVideo = function (title, url) {
         contentWindow.set(title, url);
 

@@ -36,6 +36,11 @@ BEGIN
 	FROM Songs
 	INNER JOIN Genres ON 
 	Songs.GenreID = Genres.ID
+	LEFT JOIN Videos ON
+	Songs.VideoID = Videos.ID
 END
 
 exec getmusic
+
+ALTER TABLE SONGS
+ADD VideoID INT NULL FOREIGN KEY REFERENCES VIDEOS(ID)

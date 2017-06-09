@@ -9,7 +9,7 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
             scope = $rootScope.$new(true);
             
             //Initialize the properties
-            scope.showContent = false;
+            scope.showWindow = false;
             scope.title = title;
             scope.url = url;
 
@@ -22,7 +22,7 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
 
             //Function for closing the content window
             scope.close = function () {
-                scope.showContent = false;
+                scope.showWindow = false;
                 $location.path('/');
             }
 
@@ -32,7 +32,7 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
         //Function to show the content window
         show: function () {
             loading.hide();
-            this.scope.showContent = true;
+            this.scope.showWindow = true;
             this.scope.$apply();
         }
     }

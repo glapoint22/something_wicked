@@ -10,7 +10,7 @@ var app = angular.module('somethingWicked', ['ngAnimate', 'ngRoute'])
     ]);
     $routeProvider
         .when('/videos', {
-            template: '<iframe allowfullscreen src="{{url}}" width="80%" height="80%"></iframe>',
+            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%"></iframe>',
             controller: 'VideosController'
         })
         .otherwise({
