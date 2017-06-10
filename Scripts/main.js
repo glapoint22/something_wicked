@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------------------Main-------------------------------------------------------------------------------------
-var app = angular.module('somethingWicked', ['ngAnimate', 'ngRoute'])
-.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function ($routeProvider, $locationProvider, $sceDelegateProvider) {
+var app = angular.module('somethingWicked', ['ngAnimate', 'ngRoute']);
+
+app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', function ($routeProvider, $locationProvider, $sceDelegateProvider) {
     $locationProvider.html5Mode(true);
     $sceDelegateProvider.resourceUrlWhitelist([
     // Allow same origin resource loads.

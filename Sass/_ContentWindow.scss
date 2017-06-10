@@ -36,7 +36,13 @@ content-window{
         color: #e2dfd6;
         padding-top: 4px;
     }
-
+    .content-container{
+        width: 90%; 
+        height: 90%; 
+        background: black; 
+        margin: auto; 
+        position: relative; 
+    }
     .close-button{
         font-family: Arial;
         font-size: 20px;
@@ -49,5 +55,25 @@ content-window{
     .close-button:hover{
         color: $hover;
     }
+    @media screen and (max-width: 1023px) {
+        .window{
+            height: 87.976539589442815249266862170088vw; 
+        }
+    }
+    @media screen and (max-width: 767px) {
+        .title-bar{
+            height: 30px; 
+        }
+        .content-title{
+            font-size: 20px; 
+        }
+        .close-button{
+            font-size: 15px;
+            padding: 4px 4px 0 0;
+        }
+        .content-container{
+            width: 89%; 
+            height: 89%; 
+        }
+    }
 }
-
