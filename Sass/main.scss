@@ -3,7 +3,7 @@
 @import 'SlideImage';
 @import 'Tour';
 @import 'Music';
-@import 'Videos';
+@import 'Media';
 @import 'ContentWindow';
 
 body {
@@ -73,6 +73,18 @@ iframe{
         height: 100%;
         background: black;
     }
+
+
+.slide{
+    @include transition-timing(0.3s);
+    height: 100%;
+}
+.photo{
+    width: 100%; 
+    vertical-align: top;
+   
+}
+
 
 @media screen and (max-width: 767px) {
     th{

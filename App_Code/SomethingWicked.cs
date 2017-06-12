@@ -16,17 +16,19 @@ using System.Text.RegularExpressions;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
 [System.Web.Script.Services.ScriptService]
-public class SomethingWicked : System.Web.Services.WebService
+public class SomethingWicked : WebService
 {
-    private string videoImages = "Images/Video_Images/";
-    private string slideImages = "Images/Slide_Images";
+    private string slideImages = "Images/Slide_Images/";
+    private string videoThumbnails = "Images/Video_Thumbnails/";
+    private string photoThumbnails = "Images/Photo_Thumbnails/";
+
 
 
     [WebMethod]
     public void GetSlideImages()
     {
         //Grab all the images that are in the slide images folder
-        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + "/" + Path.GetFileName(file)).ToArray();
+        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + Path.GetFileName(file)).ToArray();
 
         //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -135,10 +137,60 @@ public class SomethingWicked : System.Web.Services.WebService
 
         JavaScriptSerializer js = new JavaScriptSerializer();
         string json = js.Serialize(videos);
-        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", videoImages + "$1");
+        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", videoThumbnails + "$1");
         json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
         Context.Response.Write(json);
     }
+
+
+    [WebMethod]
+    public void GetDisplayPhotos()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        List<Video> videos = new List<Video>();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetPhotos", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Video video = new Video();
+                video.title = rdr["Title"].ToString();
+                video.thumbnail = rdr["Thumbnail"].ToString();
+                video.URL = rdr["URL"].ToString();
+                videos.Add(video);
+            }
+
+            con.Close();
+        }
+
+
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(videos);
+        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", photoThumbnails + "$1");
+        //json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
+        Context.Response.Write(json);
+    }
+
+
+    [WebMethod]
+    public void GetPhotos(string photosDir)
+    {
+        //Grab all the images that are in the specified photos folder
+        string[] photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDir).Select(file => photosDir + Path.GetFileName(file)).ToArray();
+
+        //Serialize the images array to json and send the response
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        Context.Response.Write(js.Serialize(photos));
+    }
+
 
 
 }

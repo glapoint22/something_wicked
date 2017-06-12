@@ -41,7 +41,9 @@ content-window{
         height: 90%; 
         background: black; 
         margin: auto; 
-        position: relative; 
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
     }
     .close-button{
         font-family: Arial;

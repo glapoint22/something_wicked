@@ -1,10 +1,6 @@
 @import 'Utility';
 
-#videos{
-    a{
-        display: inline-block;
-        width: 100%;
-    }
+#media{
     img{
         width: 100%;
     }
@@ -19,18 +15,18 @@
         margin: 5px; 
         background: $color2;
     }
-    .video-title{
+    .title{
         letter-spacing:initial; 
         font-size: 18px; 
         text-align: center; 
         padding: 5px 0 5px 0;
     }
-    .play {
+    .icon {
         position: relative;
         overflow: hidden;
         cursor: pointer;
     }
-    .play:hover:before {
+    .icon:hover:before {
         content: "";
         position: absolute;
         top: 0;
@@ -39,8 +35,7 @@
         right: 0;
         background: rgba(43, 68, 103, 0.50);
     }
-    .play:after{
-        content: "\f01d";
+    .icon:after{
         position: absolute;
         top: -65%;
         left: 34%;
@@ -51,10 +46,26 @@
         visibility: hidden;
     }
     
-    .play:hover:after{
+    .icon:hover:after{
         top: 17%;
         visibility:initial;
     }
+    #videos{
+        .icon:after{
+            content: "\f01d";
+        }
+    }
+    #photos{
+        .icon:after{
+            content: "\f030";
+        }
+    }
+    #bios{
+        .icon:after{
+            content: "\f15c";
+        }
+    }
+
     @media screen and (max-width: 1219px) {
         li{
             width: 32.166666666666666666666666666667%; 

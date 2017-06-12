@@ -93,22 +93,53 @@
             </div>
         </div>
 
-
-        <!--Videos-->
-        <div id="videos" ng-controller="VideosController" class="section">
-            <div class="section-content">
-                <div class="section-title">VIDEOS</div>
-                <ul>
-                    <li ng-repeat="video in videos">
-                        <div ng-click="showVideo(video.title | uppercase, video.URL)" class="play"><img ng-src="{{video.thumbnail}}" /></div>
-                        <div class="video-title">{{video.title | uppercase}}</div>
-                    </li>
-                </ul>
+        <div id="media">
+            <!--Videos-->
+            <div id="videos" ng-controller="VideosController" class="section">
+                <div class="section-content">
+                    <div class="section-title">VIDEOS</div>
+                    <ul>
+                        <li ng-repeat="video in videos">
+                            <div ng-click="showVideo(video.title | uppercase, video.URL)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
+                            <div class="title">{{video.title | uppercase}}</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </div>
-    
 
-    
+
+            <!--Photos-->
+            <div id="photos" ng-controller="PhotosController" class="section">
+                <div class="section-content">
+                    <div class="section-title">PHOTOS</div>
+                    <ul>
+                        <li ng-repeat="photo in displayPhotos">
+                            <div ng-click="showPhotos(photo.title | uppercase, photo.URL)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
+                            <div class="title">{{photo.title | uppercase}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--Bios-->
+            <div id="bios" class="section">
+                <div class="section-content">
+                    <div class="section-title">BIOS</div>
+                    <ul>
+                        <li>
+                            <div class="icon"><img src="Images/Video_Thumbnails/Hot-Stuff.png" /></div>
+                            <div class="title">AMY</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+        </div>
+       
+
+
+    </div>
 </body>
 </html>

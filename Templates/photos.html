@@ -1,0 +1,12 @@
+<div class="slide">
+    <img ng-repeat="photo in photos" class="photo" src="{{photo}}" load />
+</div>
+
+<div class="img-arrow-circle" style="position: absolute; top: 50%; left: 5%" ng-click="moveSlide(1)">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+</div>
+<div class="img-arrow-circle" style="position: absolute; top: 50%; right: 5%" ng-click="moveSlide(-1)">
+    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+</div>
+
+

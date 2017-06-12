@@ -8,7 +8,8 @@
       "Scripts/musicController.js",
       "Scripts/videosController.js",
       "Scripts/contentWindow.js",
-      "Scripts/loading.js"
+      "Scripts/loading.js",
+      "Scripts/photosController.js"
     ]
   }
 ]

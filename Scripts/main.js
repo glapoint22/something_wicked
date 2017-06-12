@@ -14,6 +14,21 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
             template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%"></iframe>',
             controller: 'VideosController'
         })
+        .when('/photos', {
+            templateUrl: 'Templates/photos.html',
+            controller: 'PhotoController',
+            resolve: {
+                photos: ['$http', 'contentWindow', function ($http, contentWindow) {
+                    return $http.get('SomethingWicked.asmx/GetPhotos', {
+                        params: {
+                            photosDir: contentWindow.scope.url
+                        }
+                    }).then(function (response) {
+                        return response.data;
+                    });
+                }]
+            }
+        })
         .otherwise({
             redirectTo: '/'
         });

@@ -13,6 +13,7 @@ app.controller('VideosController', ['$scope', '$http', 'contentWindow', '$locati
         $rootScope.$on('$viewContentLoaded', function (event) {
             angular.element(document).find('iframe').on('load', function () {
                 contentWindow.show();
+                $scope.$apply();
             });
         });
     }
