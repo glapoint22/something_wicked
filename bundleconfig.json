@@ -9,7 +9,7 @@
       "Scripts/videosController.js",
       "Scripts/contentWindow.js",
       "Scripts/loading.js",
-      "Scripts/photosController.js"
+      "Scripts/photos.js"
     ]
   }
 ]

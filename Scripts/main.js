@@ -16,7 +16,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
         })
         .when('/photos', {
             templateUrl: 'Templates/photos.html',
-            controller: 'PhotoController',
+            controller: 'SliderController',
             resolve: {
                 photos: ['$http', 'contentWindow', function ($http, contentWindow) {
                     return $http.get('SomethingWicked.asmx/GetPhotos', {

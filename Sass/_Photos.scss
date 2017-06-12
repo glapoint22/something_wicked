@@ -1,0 +1,11 @@
+@import 'Utility';
+
+.photo{
+    width: 100%; 
+    vertical-align: top;
+   
+}
+.slider{
+    @include transition-timing(0.3s);
+    height: 100%;
+}

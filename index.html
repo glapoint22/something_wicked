@@ -29,7 +29,6 @@
                 <i class="fa fa-align-justify" aria-hidden="true"></i>
             </div>
         </div>
-
         <!--Slide-->
         <div ng-controller="SlideController">
             <div class="slide-img-container" set-height>
@@ -46,8 +45,6 @@
                 </div>
             </div>
         </div>
-
-
         <!--Tour-->
         <div class="section" ng-controller="ScheduleController">
             <div class="section-content">
@@ -68,8 +65,6 @@
                 </table>
             </div>
         </div>
-
-
         <!--Music-->
         <div id="music" ng-controller="MusicController" class="section">
             <div class="section-content">
@@ -92,7 +87,6 @@
                 </table>
             </div>
         </div>
-
         <div id="media">
             <!--Videos-->
             <div id="videos" ng-controller="VideosController" class="section">
@@ -106,21 +100,18 @@
                     </ul>
                 </div>
             </div>
-
-
             <!--Photos-->
             <div id="photos" ng-controller="PhotosController" class="section">
                 <div class="section-content">
                     <div class="section-title">PHOTOS</div>
                     <ul>
-                        <li ng-repeat="photo in displayPhotos">
+                        <li ng-repeat="photo in photos">
                             <div ng-click="showPhotos(photo.title | uppercase, photo.URL)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
                             <div class="title">{{photo.title | uppercase}}</div>
                         </li>
                     </ul>
                 </div>
             </div>
-
             <!--Bios-->
             <div id="bios" class="section">
                 <div class="section-content">
@@ -133,13 +124,7 @@
                     </ul>
                 </div>
             </div>
-
-
-
         </div>
-       
-
-
     </div>
 </body>
 </html>
