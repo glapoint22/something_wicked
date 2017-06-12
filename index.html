@@ -113,13 +113,13 @@
                 </div>
             </div>
             <!--Bios-->
-            <div id="bios" class="section">
+            <div id="bios" ng-controller="MembersController" class="section">
                 <div class="section-content">
                     <div class="section-title">BIOS</div>
                     <ul>
-                        <li>
-                            <div class="icon"><img src="Images/Video_Thumbnails/Hot-Stuff.png" /></div>
-                            <div class="title">AMY</div>
+                        <li ng-repeat="member in members">
+                            <div class="icon"><img src="{{member.thumbnail}}" /></div>
+                            <div class="title">{{member.title | uppercase}}</div>
                         </li>
                     </ul>
                 </div>

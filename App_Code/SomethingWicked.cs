@@ -21,6 +21,7 @@ public class SomethingWicked : WebService
     private string slideImages = "Images/Slide_Images/";
     private string videoThumbnails = "Images/Video_Thumbnails/";
     private string photoThumbnails = "Images/Photo_Thumbnails/";
+    private string memberThumbnails = "Images/Member_Thumbnails/";
 
 
 
@@ -110,7 +111,7 @@ public class SomethingWicked : WebService
     public void GetVideos()
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        List<Video> videos = new List<Video>();
+        List<Media> videos = new List<Media>();
 
         using (SqlConnection con = new SqlConnection(cs))
         {
@@ -123,7 +124,7 @@ public class SomethingWicked : WebService
 
             while (rdr.Read())
             {
-                Video video = new Video();
+                Media video = new Media();
                 video.title = rdr["Title"].ToString();
                 video.thumbnail = rdr["Thumbnail"].ToString();
                 video.URL = rdr["URL"].ToString();
@@ -147,7 +148,7 @@ public class SomethingWicked : WebService
     public void GetDisplayPhotos()
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        List<Video> videos = new List<Video>();
+        List<Media> videos = new List<Media>();
 
         using (SqlConnection con = new SqlConnection(cs))
         {
@@ -160,7 +161,7 @@ public class SomethingWicked : WebService
 
             while (rdr.Read())
             {
-                Video video = new Video();
+                Media video = new Media();
                 video.title = rdr["Title"].ToString();
                 video.thumbnail = rdr["Thumbnail"].ToString();
                 video.URL = rdr["URL"].ToString();
@@ -175,7 +176,6 @@ public class SomethingWicked : WebService
         JavaScriptSerializer js = new JavaScriptSerializer();
         string json = js.Serialize(videos);
         json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", photoThumbnails + "$1");
-        //json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
         Context.Response.Write(json);
     }
 
@@ -192,6 +192,40 @@ public class SomethingWicked : WebService
     }
 
 
+    [WebMethod]
+    public void GetMembers()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        List<Media> members = new List<Media>();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetMembers", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                Media member = new Media();
+                member.ID = (int)rdr["ID"];
+                member.title = rdr["Name"].ToString();
+                member.thumbnail = rdr["Thumbnail"].ToString();
+                members.Add(member);
+            }
+
+            con.Close();
+        }
+
+
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(members);
+        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", memberThumbnails + "$1");
+        Context.Response.Write(json);
+    }
 
 }
 
@@ -213,8 +247,9 @@ public struct Song
     public string URL;
 }
 
-public struct Video
+public struct Media
 {
+    public int ID;
     public string title;
     public string thumbnail;
     public string URL;
