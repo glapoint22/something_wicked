@@ -29,6 +29,21 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
                 }]
             }
         })
+        .when('/bios', {
+            templateUrl: 'Templates/bio.html',
+            controller: 'BiosController',
+            resolve: {
+                bio: ['$http', 'contentWindow', function ($http, contentWindow) {
+                    return $http.get('SomethingWicked.asmx/GetBio', {
+                        params: {
+                            memberID: contentWindow.scope.url
+                        }
+                    }).then(function (response) {
+                        return response.data;
+                    });
+                }]
+            }
+        })
         .otherwise({
             redirectTo: '/'
         });

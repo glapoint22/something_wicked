@@ -210,7 +210,7 @@ public class SomethingWicked : WebService
             while (rdr.Read())
             {
                 Media member = new Media();
-                member.ID = (int)rdr["ID"];
+                member.id = (int)rdr["ID"];
                 member.title = rdr["Name"].ToString();
                 member.thumbnail = rdr["Thumbnail"].ToString();
                 members.Add(member);
@@ -227,6 +227,34 @@ public class SomethingWicked : WebService
         Context.Response.Write(json);
     }
 
+
+
+    [WebMethod]
+    public void GetBio(int memberID)
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        string bio = string.Empty;
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetBio", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@memberID", SqlDbType.Int).Value = memberID;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                bio = rdr["Bio"].ToString();
+            }
+
+            con.Close();
+        }
+
+        Context.Response.Write(bio);
+    }
 }
 
 
@@ -249,7 +277,7 @@ public struct Song
 
 public struct Media
 {
-    public int ID;
+    public int id;
     public string title;
     public string thumbnail;
     public string URL;

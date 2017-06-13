@@ -118,7 +118,7 @@
                     <div class="section-title">BIOS</div>
                     <ul>
                         <li ng-repeat="member in members">
-                            <div class="icon"><img src="{{member.thumbnail}}" /></div>
+                            <div ng-click="showBio(member.title | uppercase, member.id)" class="icon"><img src="{{member.thumbnail}}" /></div>
                             <div class="title">{{member.title | uppercase}}</div>
                         </li>
                     </ul>

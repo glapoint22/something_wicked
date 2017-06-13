@@ -19,3 +19,23 @@ BEGIN
 END
 
 exec GetMembers
+
+select * from members
+select * from bios
+
+
+
+CREATE PROC GetBio
+(
+	@memberID int
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT Bio
+	FROM Bios
+	WHERE MemberID = @memberID
+END
+
+
+drop proc getbio
