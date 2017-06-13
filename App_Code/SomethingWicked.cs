@@ -181,10 +181,10 @@ public class SomethingWicked : WebService
 
 
     [WebMethod]
-    public void GetPhotos(string photosDir)
+    public void GetPhotos(string photosDirectory)
     {
         //Grab all the images that are in the specified photos folder
-        string[] photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDir).Select(file => photosDir + Path.GetFileName(file)).ToArray();
+        string[] photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory).Select(file => photosDirectory + Path.GetFileName(file)).ToArray();
 
         //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();

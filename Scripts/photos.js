@@ -8,7 +8,7 @@ app.controller('PhotosController', ['$scope', '$http', 'contentWindow', '$locati
     //Show the photos in the content window
     $scope.showPhotos = function (title, url) {
         //Set the content window
-        contentWindow.set(title, url);
+        contentWindow.set({ title: title, photosDirectory: url });
 
         //Set the url as photos
         $location.path('/photos');
@@ -52,6 +52,7 @@ app.directive('checkLoading', ['contentWindow', function (contentWindow) {
                 scope.$parent.loadCounter++;
                 if (scope.$parent.loadCounter === scope.$parent.photos.length) {
                     contentWindow.show();
+                    scope.$apply();
                 }
             });
             

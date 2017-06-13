@@ -2,7 +2,7 @@
 app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', function contentWindowFactory(loading, $rootScope, $compile, $location) {
     return {
         //Function to initialize and set up the content window
-        set: function (title, url) {
+        set: function (content) {
             var scope, contentWindow;
             
             //Create a new scope for the content window
@@ -10,8 +10,7 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
             
             //Initialize the properties
             scope.showWindow = false;
-            scope.title = title;
-            scope.url = url;
+            scope.content = content;
 
             //Create the content window directive
             contentWindow = $compile('<content-window>')(scope);
@@ -26,14 +25,14 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
                 $location.path('/');
             }
 
-            //Assign the current scope to this object
+            //Assign the object properties
             this.scope = scope;
+            this.content = content;
         },
         //Function to show the content window
         show: function () {
             loading.hide();
             this.scope.showWindow = true;
-            this.scope.$apply();
         }
     }
 }]);

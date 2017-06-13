@@ -7,7 +7,7 @@ app.controller('VideosController', ['$scope', '$http', 'contentWindow', '$locati
 
     //Show the video in the content window
     $scope.showVideo = function (title, url) {
-        contentWindow.set(title, url);
+        contentWindow.set({ title: title, url: url });
 
         $location.path('/videos');
         $rootScope.$on('$viewContentLoaded', function (event) {

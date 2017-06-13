@@ -11,7 +11,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     ]);
     $routeProvider
         .when('/videos', {
-            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%"></iframe>',
+            template: '<iframe allowfullscreen src="{{content.url}}" width="100%" height="100%"></iframe>',
             controller: 'VideosController'
         })
         .when('/photos', {
@@ -21,7 +21,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
                 photos: ['$http', 'contentWindow', function ($http, contentWindow) {
                     return $http.get('SomethingWicked.asmx/GetPhotos', {
                         params: {
-                            photosDir: contentWindow.scope.url
+                            photosDirectory: contentWindow.content.photosDirectory
                         }
                     }).then(function (response) {
                         return response.data;
@@ -36,7 +36,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
                 bio: ['$http', 'contentWindow', function ($http, contentWindow) {
                     return $http.get('SomethingWicked.asmx/GetBio', {
                         params: {
-                            memberID: contentWindow.scope.url
+                            memberID: contentWindow.content.memberID
                         }
                     }).then(function (response) {
                         return response.data;

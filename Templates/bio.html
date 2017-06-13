@@ -1,3 +1,6 @@
-<div style="width: 100%; white-space: normal">
-    {{bio}}
+<div class="bio">
+    <img src="{{content.thumbnail}}" />
+    <div class="bio-container">
+        <div class="bio-text" ng-bind-html="bio"></div>
+    </div>
 </div>
