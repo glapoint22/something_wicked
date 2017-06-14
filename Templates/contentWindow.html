@@ -1,5 +1,5 @@
-<div class="window-background ng-hide" ng-show="showWindow">
-    <div class="window">
+<div class="window-background ng-hide" ng-show="showWindow" ng-click="close()">
+    <div class="window" ng-click="stopPropagation($event)">
         <div class="title-bar">
             <div class="content-title">{{content.title}}
                 <span class="close-button" ng-click="close()">X</span>

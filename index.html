@@ -95,7 +95,10 @@
                     <ul>
                         <li ng-repeat="video in videos">
                             <div ng-click="showVideo(video.title | uppercase, video.URL)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
-                            <div class="title">{{video.title | uppercase}}</div>
+                            <div class="title-bar">
+                                <div class="title">{{video.title | uppercase}}</div>
+                            </div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -107,7 +110,10 @@
                     <ul>
                         <li ng-repeat="photo in photos">
                             <div ng-click="showPhotos(photo.title | uppercase, photo.URL)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
-                            <div class="title">{{photo.title | uppercase}}</div>
+                            <div class="title-bar">
+                                <div class="title">{{photo.title | uppercase}}</div>
+                            </div>
+                            
                         </li>
                     </ul>
                 </div>
@@ -119,7 +125,10 @@
                     <ul>
                         <li ng-repeat="member in members">
                             <div ng-click="showBio(member.title | uppercase, member.id, member.thumbnail)" class="icon"><img src="{{member.thumbnail}}" /></div>
-                            <div class="title">{{member.title | uppercase}}</div>
+                            <div class="title-bar">
+                                <div class="title">{{member.title | uppercase}}</div>
+                            </div>
+                            
                         </li>
                     </ul>
                 </div>

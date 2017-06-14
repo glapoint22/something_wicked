@@ -28,6 +28,11 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
             //Assign the object properties
             this.scope = scope;
             this.content = content;
+
+            scope.stopPropagation = function ($event) {
+                $event.stopPropagation();
+                $event.preventDefault();
+            }
         },
         //Function to show the content window
         show: function () {

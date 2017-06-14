@@ -3,6 +3,7 @@
 #media{
     img{
         width: 100%;
+        display: block;
     }
     ul{
         list-style: none; 
@@ -13,13 +14,16 @@
         display: inline-block; 
         width: 24.166666666666666666666666666667%; 
         margin: 5px; 
-        background: $color2;
+    }
+    .title-bar{
+        @include gradient($color3, $color2);
     }
     .title{
         letter-spacing:initial; 
         font-size: 18px; 
         text-align: center; 
         padding: 5px 0 5px 0;
+        color: $color5;
     }
     .icon {
         position: relative;

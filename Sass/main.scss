@@ -10,14 +10,12 @@
 
 body {
     margin: 0; 
-    background: #000; 
-    color: white;
 }
 .section:nth-child(odd){
-    background: #ede9e0;
+    background: $color4;
 }
 .section:nth-child(even){
-    background: #e2dfd6;
+    background: $color5;
 }
 .section-content{
     max-width: 1200px;
@@ -35,7 +33,7 @@ table{
 }
 th{
     @include gradient($color3, $color2);
-    color: white;
+    color: $color5;
     border: 1px solid $color1;
     text-align: center;
     padding: 5px;
@@ -75,6 +73,10 @@ iframe{
     height: 100%;
     background: black;
 }
+.fa-spinner{
+    color: $color5;
+}
+
 @media screen and (max-width: 767px) {
     th{
         font-size: 15px;
