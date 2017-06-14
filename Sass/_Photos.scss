@@ -3,7 +3,8 @@
 .photo{
     width: 100%; 
     vertical-align: top;
-   
+    height: 100%;
+    object-fit: cover;
 }
 .slider{
     @include transition-timing(0.3s);
