@@ -19,7 +19,7 @@
         @include gradient($color3, $color2);
     }
     .title{
-        letter-spacing:initial; 
+        letter-spacing: 0; 
         font-size: 18px; 
         text-align: center; 
         padding: 5px 0 5px 0;

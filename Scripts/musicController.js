@@ -26,12 +26,13 @@ app.controller('MusicController', ['$scope', '$http', 'contentWindow', '$locatio
 
     //Show the video in the content window
     $scope.showVideo = function (title, url) {
-        contentWindow.set(title, url);
+        contentWindow.set({ title: title, url: url });
 
         $location.path('/videos');
         $rootScope.$on('$viewContentLoaded', function (event) {
             angular.element(document).find('iframe').on('load', function () {
                 contentWindow.show();
+                $scope.$apply();
             });
         });
     }

@@ -19,11 +19,11 @@
         <div class="nav-bar">
             <img class="logo" src="SomethingWickedLogo.png" />
             <div class="nav-grp">
-                <a href="" class="nav">TOUR</a>
-                <a href="" class="nav">MUSIC</a>
-                <a href="" class="nav">VIDEOS</a>
-                <a href="" class="nav">PHOTOS</a>
-                <a href="" class="nav">BIOS</a>
+                <div ng-click="scrollTo('tour')" class="nav">TOUR</div>
+                <div ng-click="scrollTo('music')" class="nav">MUSIC</div>
+                <div ng-click="scrollTo('videos')" class="nav">VIDEOS</div>
+                <div ng-click="scrollTo('photos')" class="nav">PHOTOS</div>
+                <div ng-click="scrollTo('bios')" class="nav">BIOS</div>
             </div>
             <div class="mobile-menu">
                 <i class="fa fa-align-justify" aria-hidden="true"></i>
@@ -46,7 +46,7 @@
             </div>
         </div>
         <!--Tour-->
-        <div class="section" ng-controller="ScheduleController">
+        <div id="tour" class="section" ng-controller="ScheduleController">
             <div class="section-content">
                 <div class="section-title">TOUR</div>
                 <table cellspacing="0">
