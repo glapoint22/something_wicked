@@ -1,5 +1,10 @@
 //------------------------------------------------------------------------------Music Controller-------------------------------------------------------------------------------------
-app.controller('MusicController', ['$scope', '$http', 'contentWindow', '$location', '$rootScope', function ($scope, $http, contentWindow, $location, $rootScope) {
+app.controller('MusicController', ['$scope', 'contentWindow', '$location', '$rootScope', function ($scope, contentWindow, $location, $rootScope) {
+    //Get the song list
+    $scope.deferred.promise.then(function (response) {
+        $scope.songs = response.songs;
+    });
+
     //Initialize the sorting properties
     $scope.sortColumn = 'name';
     $scope.isDescending = false;
@@ -19,10 +24,6 @@ app.controller('MusicController', ['$scope', '$http', 'contentWindow', '$locatio
         return '';
     }
 
-    //Get the song list
-    $http.get('SomethingWicked.asmx/GetMusic').then(function (response) {
-        $scope.songs = response.data;
-    });
 
     //Show the video in the content window
     $scope.showVideo = function (title, url) {

@@ -19,164 +19,130 @@ using System.Text.RegularExpressions;
 public class SomethingWicked : WebService
 {
     private string slideImages = "Images/Slide_Images/";
-    private string videoThumbnails = "Images/Video_Thumbnails/";
-    private string photoThumbnails = "Images/Photo_Thumbnails/";
-    private string memberThumbnails = "Images/Member_Thumbnails/";
-
-
 
     [WebMethod]
-    public void GetSlideImages()
+    public void GetData()
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        Data data = new Data();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            data.images = GetSlideImages();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = con;
+            
+            //Open the connection
+            con.Open();
+
+            //Get the data
+            data.shows = GetSchedule(con, cmd);
+            data.songs = GetSongs(con, cmd);
+            data.videos = GetVideos(con, cmd);
+            data.photos = GetDisplayPhotos(con, cmd);
+            data.members = GetMembers(con, cmd);
+
+            //Close the connection
+            con.Close();
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string json = js.Serialize(data);
+        json = Regex.Replace(json, @"\""\\/Date\((\d+)\)\\/\""", "$1");
+        json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
+        Context.Response.Write(json);
+    }
+
+
+
+    private string[] GetSlideImages()
     {
         //Grab all the images that are in the slide images folder
-        string[] images = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + Path.GetFileName(file)).ToArray();
-
-        //Serialize the images array to json and send the response
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        Context.Response.Write(js.Serialize(images));
+        return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + Path.GetFileName(file)).ToArray();
     }
 
 
-    [WebMethod]
-    public void GetSchedule()
+    private List<Show> GetSchedule(SqlConnection con, SqlCommand cmd)
     {
-        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         List<Show> schedule = new List<Show>();
 
-        using (SqlConnection con = new SqlConnection(cs))
-        {
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand("GetSchedule", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Show show = new Show();
-                show.dateTime = (DateTime)rdr["DateTime"];
-                show.venue = rdr["Venue"].ToString();
-                show.location = rdr["Location"].ToString();
-                show.URL = rdr["URL"].ToString();
-                show.duration = (float)rdr.GetDouble(4);
-                schedule.Add(show);
-            }
-
-            con.Close();
-        }
-
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(schedule);
-        json = Regex.Replace(json, @"\""\\/Date\((\d+)\)\\/\""", "$1");
-        Context.Response.Write(json);
-    }
-
-    [WebMethod]
-    public void GetMusic()
-    {
-        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        List<Song> songs = new List<Song>();
-
-        using (SqlConnection con = new SqlConnection(cs))
-        {
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand("GetMusic", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Song song = new Song();
-                song.name = rdr["Song"].ToString();
-                song.artist = rdr["Artist"].ToString();
-                song.genre = rdr["Genre"].ToString();
-                song.URL = rdr["URL"].ToString();
-                songs.Add(song);
-            }
-
-            con.Close();
-        }
-
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(songs);
-        json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
-        Context.Response.Write(json);
-    }
-
-
-    [WebMethod]
-    public void GetVideos()
-    {
-        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        List<Media> videos = new List<Media>();
-
-        using (SqlConnection con = new SqlConnection(cs))
-        {
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand("GetVideos", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Media video = new Media();
-                video.title = rdr["Title"].ToString();
-                video.thumbnail = rdr["Thumbnail"].ToString();
-                video.URL = rdr["URL"].ToString();
-                videos.Add(video);
-            }
-
-            con.Close();
-        }
-
         
+        cmd.CommandText = "GetSchedule";
+        SqlDataReader rdr = cmd.ExecuteReader();
 
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(videos);
-        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", videoThumbnails + "$1");
-        json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
-        Context.Response.Write(json);
+        while (rdr.Read())
+        {
+            Show show = new Show();
+            show.dateTime = (DateTime)rdr["DateTime"];
+            show.venue = rdr["Venue"].ToString();
+            show.location = rdr["Location"].ToString();
+            show.URL = rdr["URL"].ToString();
+            show.duration = (float)rdr.GetDouble(4);
+            schedule.Add(show);
+        }
+        rdr.Close();
+        return schedule;
+    }
+
+    private List<Song> GetSongs(SqlConnection con, SqlCommand cmd)
+    {
+        List<Song> songs = new List<Song>();
+        cmd.CommandText = "GetMusic";
+        SqlDataReader rdr = cmd.ExecuteReader();
+
+        while (rdr.Read())
+        {
+            Song song = new Song();
+            song.name = rdr["Song"].ToString();
+            song.artist = rdr["Artist"].ToString();
+            song.genre = rdr["Genre"].ToString();
+            song.URL = rdr["URL"].ToString();
+            songs.Add(song);
+        }
+
+        rdr.Close();
+        return songs;
     }
 
 
-    [WebMethod]
-    public void GetDisplayPhotos()
+    private List<Media> GetVideos(SqlConnection con, SqlCommand cmd)
     {
-        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         List<Media> videos = new List<Media>();
+        cmd.CommandText = "GetVideos";
+        SqlDataReader rdr = cmd.ExecuteReader();
 
-        using (SqlConnection con = new SqlConnection(cs))
+        while (rdr.Read())
         {
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand("GetPhotos", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Media video = new Media();
-                video.title = rdr["Title"].ToString();
-                video.thumbnail = rdr["Thumbnail"].ToString();
-                video.URL = rdr["URL"].ToString();
-                videos.Add(video);
-            }
-
-            con.Close();
+            Media video = new Media();
+            video.title = rdr["Title"].ToString();
+            video.thumbnail = rdr["Thumbnail"].ToString();
+            video.URL = rdr["URL"].ToString();
+            videos.Add(video);
         }
 
+        rdr.Close();
+        return videos;
+    }
 
 
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(videos);
-        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", photoThumbnails + "$1");
-        Context.Response.Write(json);
+    private List<Media> GetDisplayPhotos(SqlConnection con, SqlCommand cmd)
+    {
+        List<Media> photos = new List<Media>();
+        cmd.CommandText = "GetPhotos";
+        SqlDataReader rdr = cmd.ExecuteReader();
+
+        while (rdr.Read())
+        {
+            Media photo = new Media();
+            photo.title = rdr["Title"].ToString();
+            photo.thumbnail = rdr["Thumbnail"].ToString();
+            photo.URL = rdr["URL"].ToString();
+            photos.Add(photo);
+        }
+        rdr.Close();
+        return photos;
     }
 
 
@@ -192,39 +158,22 @@ public class SomethingWicked : WebService
     }
 
 
-    [WebMethod]
-    public void GetMembers()
+    private List<Media> GetMembers(SqlConnection con, SqlCommand cmd)
     {
-        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         List<Media> members = new List<Media>();
+        cmd.CommandText = "GetMembers";
+        SqlDataReader rdr = cmd.ExecuteReader();
 
-        using (SqlConnection con = new SqlConnection(cs))
+        while (rdr.Read())
         {
-            con.Open();
-
-            SqlCommand cmd = new SqlCommand("GetMembers", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
-            {
-                Media member = new Media();
-                member.id = (int)rdr["ID"];
-                member.title = rdr["Name"].ToString();
-                member.thumbnail = rdr["Thumbnail"].ToString();
-                members.Add(member);
-            }
-
-            con.Close();
+            Media member = new Media();
+            member.id = (int)rdr["ID"];
+            member.title = rdr["Name"].ToString();
+            member.thumbnail = rdr["Thumbnail"].ToString();
+            members.Add(member);
         }
-
-
-
-        JavaScriptSerializer js = new JavaScriptSerializer();
-        string json = js.Serialize(members);
-        json = Regex.Replace(json, "(?!thumbnail\\\":\\\")([\\w?-]+\\.png)", memberThumbnails + "$1");
-        Context.Response.Write(json);
+        rdr.Close();
+        return members;
     }
 
 
@@ -281,4 +230,14 @@ public struct Media
     public string title;
     public string thumbnail;
     public string URL;
+}
+
+public struct Data
+{
+    public string[] images;
+    public List<Show> shows;
+    public List<Song> songs;
+    public List<Media> videos;
+    public List<Media> photos;
+    public List<Media> members;
 }

@@ -1,11 +1,11 @@
 //---------------------------------------------------------------------------------Slide Controller-------------------------------------------------------------------------------------
-app.controller('SlideController', ['$scope', '$interval', '$http', function ($scope, $interval, $http) {
+app.controller('SlideController', ['$scope', '$interval', function ($scope, $interval) {
     var nextImg;
     $scope.currentImage = 0;
 
     //Get an array of images that will be displayed in the slide
-    $http.get('SomethingWicked.asmx/GetSlideImages').then(function (response) {
-        $scope.images = response.data;
+    $scope.deferred.promise.then(function (response) {
+        $scope.images = response.images;
         //Begin the slide show
         startSlide();
     });

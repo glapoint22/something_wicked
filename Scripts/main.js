@@ -49,9 +49,17 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
         });
 }]);
 //-------------------------------------------------------------------------------------Main Controller-------------------------------------------------------------------------------------
-app.controller('MainController', ['$scope', '$location', '$timeout', function ($scope, $location, $timeout) {
+app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$q', function ($scope, $location, $timeout, $http, $q) {
+    //Default location
     $location.path('/');
 
+    //Get all the data
+    $scope.deferred = $q.defer();
+    $http.get('SomethingWicked.asmx/GetData').then(function (response) {
+        $scope.deferred.resolve(response.data);
+    });
+
+    //Function used for scrolling to the sections on the page
     $scope.scrollTo = function (id) {
         var yOffset = 10,
             duration = 500,

@@ -1,7 +1,7 @@
 //-------------------------------------------------------------------------------------Members Controller-------------------------------------------------------------------------------------
 app.controller('MembersController', ['$scope', '$http', 'contentWindow', '$location', '$rootScope', function ($scope, $http, contentWindow, $location, $rootScope) {
-    $http.get('SomethingWicked.asmx/GetMembers').then(function (response) {
-        $scope.members = response.data;
+    $scope.deferred.promise.then(function (response) {
+        $scope.members = response.members;
     });
 
     $scope.showBio = function (name, memberID, thumbnail) {

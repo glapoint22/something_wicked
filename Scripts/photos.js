@@ -1,8 +1,8 @@
 //-------------------------------------------------------------------------------------Photos Controller-------------------------------------------------------------------------------------
-app.controller('PhotosController', ['$scope', '$http', 'contentWindow', '$location', function ($scope, $http, contentWindow, $location) {
+app.controller('PhotosController', ['$scope', 'contentWindow', '$location', function ($scope, contentWindow, $location) {
     //Get the photos 
-    $http.get('SomethingWicked.asmx/GetDisplayPhotos').then(function (response) {
-        $scope.photos = response.data;
+    $scope.deferred.promise.then(function (response) {
+        $scope.photos = response.photos;
     });
     
     //Show the photos in the content window

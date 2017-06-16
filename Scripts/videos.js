@@ -1,9 +1,12 @@
 //-------------------------------------------------------------------------------------Videos Controller-------------------------------------------------------------------------------------
-app.controller('VideosController', ['$scope', '$http', 'contentWindow', '$location', '$rootScope', function ($scope, $http, contentWindow, $location, $rootScope) {
+app.controller('VideosController', ['$scope', 'contentWindow', '$location', '$rootScope', function ($scope, contentWindow, $location, $rootScope) {
     //Get the video urls
-    $http.get('SomethingWicked.asmx/GetVideos').then(function (response) {
-        $scope.videos = response.data;
-    });
+    if ($scope.deferred) {
+        $scope.deferred.promise.then(function (response) {
+            $scope.videos = response.videos;
+        });
+    }
+    
 
     //Show the video in the content window
     $scope.showVideo = function (title, url) {
