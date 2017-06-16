@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------Members Controller-------------------------------------------------------------------------------------
-app.controller('MembersController', ['$scope', '$http', 'contentWindow', '$location', '$rootScope', function ($scope, $http, contentWindow, $location, $rootScope) {
+app.controller('MembersController', ['$scope', 'contentWindow', '$location', '$rootScope', function ($scope, contentWindow, $location, $rootScope) {
     $scope.deferred.promise.then(function (response) {
         $scope.members = response.members;
     });
