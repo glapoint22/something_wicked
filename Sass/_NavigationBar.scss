@@ -22,9 +22,6 @@
     font-size: 20px;
     display: inline;
 }
-.nav:visited{
-    color: $color1;
-}
 .nav:hover{
     color: $hover;
     cursor: pointer;
@@ -48,6 +45,32 @@
     visibility: hidden;
     text-align: center;
     line-height: 48px;
+}
+.mobile-menu-dropdown{
+    width: 100%; 
+    @include gradient($color3, $color2);
+    position: fixed; 
+    z-index: 10; 
+    font-size: 20px; 
+    overflow: hidden; 
+    color: $color1;
+    border: 2px solid $color1; 
+    border-top: none;
+    box-sizing: border-box;
+    padding-top: 4px;
+    @include transition-timing(0.2s);
+        &.ng-hide{
+            padding-top: 0;
+            opacity: 0;
+        }
+}
+.mobile-nav{
+    padding: 0 10px 4px 10px;
+    padding-top: inherit;
+}
+.mobile-nav:hover{
+    color: $hover;
+    cursor: pointer;
 }
 @media screen and (max-width: 1200px) {
     .nav{

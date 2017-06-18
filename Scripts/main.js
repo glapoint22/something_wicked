@@ -53,6 +53,12 @@ app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$
     //Default location
     $location.path('/');
 
+    $scope.showMobileMenuDropdown = false;
+
+    $scope.menuClick = function () {
+        $scope.showMobileMenuDropdown = ($scope.showMobileMenuDropdown === true ? false : true);
+    }
+
     //Get all the data
     $scope.deferred = $q.defer();
     $http.get('SomethingWicked.asmx/GetData').then(function (response) {
@@ -61,7 +67,7 @@ app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$
 
     //Function used for scrolling to the sections on the page
     $scope.scrollTo = function (id) {
-        var yOffset = 10,
+        var yOffset = 70,
             duration = 500,
             element = document.getElementById(id),
             rect = element.getBoundingClientRect(),
@@ -82,7 +88,9 @@ app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$
                     $timeout(animateScroll, increment);
                 }
             };
-            animateScroll();
+        animateScroll();
+
+        $scope.showMobileMenuDropdown = false;
        
 
         //t = current time

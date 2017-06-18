@@ -25,10 +25,19 @@
                 <div ng-click="scrollTo('photos')" class="nav">PHOTOS</div>
                 <div ng-click="scrollTo('bios')" class="nav">BIOS</div>
             </div>
-            <div class="mobile-menu">
+            <div class="mobile-menu" ng-click="menuClick()">
                 <i class="fa fa-align-justify" aria-hidden="true"></i>
             </div>
         </div>
+
+        <div ng-show="showMobileMenuDropdown" class="mobile-menu-dropdown ng-hide">
+            <div ng-click="scrollTo('tour')" class="mobile-nav">TOUR</div>
+            <div ng-click="scrollTo('music')" class="mobile-nav">MUSIC</div>
+            <div ng-click="scrollTo('videos')" class="mobile-nav">VIDEOS</div>
+            <div ng-click="scrollTo('photos')" class="mobile-nav">PHOTOS</div>
+            <div ng-click="scrollTo('bios')" class="mobile-nav">BIOS</div>
+        </div>
+
         <!--Slide-->
         <div ng-controller="SlideController">
             <div class="slide-img-container" set-height>
