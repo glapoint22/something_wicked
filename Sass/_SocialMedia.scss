@@ -1,0 +1,35 @@
+@import 'Utility';
+
+#social-media{
+    li{
+        width: 60px;
+    }
+    .social-media-circle{
+        background: $color2;
+        border-radius: 50%;
+        width: 50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 30px;
+        @include transition-timing(0.2s);
+        color: $color1;
+    }
+    .social-media-circle:hover{
+        background: $color1;
+        cursor: pointer;
+        color: $color2;
+    }
+    .section-content {
+        padding: .5vw 10px .5vw 10px;
+    }
+    .back-to-top{
+        padding-left: 100px;
+    }
+    @media screen and (max-width: 430px) {
+        .back-to-top{
+            padding-left: 0;
+            float: right;
+        }
+    }
+}
+

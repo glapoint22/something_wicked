@@ -67,7 +67,7 @@ app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$
 
     //Function used for scrolling to the sections on the page
     $scope.scrollTo = function (id) {
-        var yOffset = 70,
+        var yOffset = id === 'top' ? 80 : 70,
             duration = 500,
             element = document.getElementById(id),
             rect = element.getBoundingClientRect(),

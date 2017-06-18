@@ -22,6 +22,7 @@ content-window{
         width: 1600px;
         height: 900px; 
         border: 1px solid #332306;
+        border-radius: 15px;
     }
     .title-bar{
         position: relative; 
@@ -30,6 +31,8 @@ content-window{
         height: 40px; 
         @include gradient($color3, $color2);
         border-bottom: 1px solid #332306;
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
     }
     .content-title{
         font-size: 30px; 
