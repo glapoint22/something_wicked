@@ -41,6 +41,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -94,31 +98,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
-    <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
-    <Content Include="bin\Microsoft.AI.PerfCounterCollector.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.dll" />
-    <Content Include="bin\Microsoft.AI.ServerTelemetryChannel.xml" />
-    <Content Include="bin\Microsoft.AI.Web.dll" />
-    <Content Include="bin\Microsoft.AI.Web.xml" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.dll" />
-    <Content Include="bin\Microsoft.AI.WindowsServer.xml" />
-    <Content Include="bin\Microsoft.ApplicationInsights.dll" />
-    <Content Include="bin\Microsoft.ApplicationInsights.xml" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\Something_Wicked.dll" />
-    <Content Include="bin\Something_Wicked.pdb" />
     <Content Include="Images\Member_Thumbnails\Amy.png" />
     <Content Include="Images\Member_Thumbnails\Bron.png" />
     <Content Include="Images\Member_Thumbnails\Don.png" />
@@ -134,62 +113,55 @@
     <Content Include="Images\Video_Thumbnails\Boogie-Oogie-Oogie.png" />
     <Content Include="Images\Video_Thumbnails\Hot-Stuff.png" />
     <Content Include="index.html" />
-    <Content Include="obj\Debug\Something_Wicked.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Something_Wicked.dll" />
-    <Content Include="obj\Debug\Something_Wicked.pdb" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\ApplicationInsights.config" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <Content Include="bin\Something_Wicked.dll.config" />
-    <Content Include="bundleconfig.json" />
-    <Content Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="Sass\main.scss" />
-    <Content Include="Sass\_Bio.scss" />
-    <Content Include="Sass\_ContentWindow.scss" />
-    <Content Include="Sass\_Media.scss" />
-    <Content Include="Sass\_Music.scss" />
-    <Content Include="Sass\_NavigationBar.scss" />
-    <Content Include="Sass\_Photos.scss" />
-    <Content Include="Sass\_SlideImage.scss" />
-    <Content Include="Sass\_SocialMedia.scss" />
-    <Content Include="Sass\_Tour.scss" />
-    <Content Include="Sass\_Utility.scss" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults" />
+    <None Include="Properties\PublishProfiles\asdf.pubxml" />
+    <None Include="Sass\main.scss" />
+    <None Include="Sass\_Bio.scss" />
+    <None Include="Sass\_ContentWindow.scss" />
+    <None Include="Sass\_Media.scss" />
+    <None Include="Sass\_Music.scss" />
+    <None Include="Sass\_NavigationBar.scss" />
+    <None Include="Sass\_Photos.scss" />
+    <None Include="Sass\_SlideImage.scss" />
+    <None Include="Sass\_SocialMedia.scss" />
+    <None Include="Sass\_Tour.scss" />
+    <None Include="Sass\_Utility.scss" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\bios.js" />
-    <Content Include="Scripts\contentWindow.js" />
-    <Content Include="Scripts\loading.js" />
-    <Content Include="Scripts\main.js" />
-    <Content Include="Scripts\music.js" />
-    <Content Include="Scripts\photos.js" />
-    <Content Include="Scripts\slideImage.js" />
-    <Content Include="Scripts\tour.js" />
-    <Content Include="Scripts\videos.js" />
+    <None Include="Scripts\bios.js" />
+    <None Include="Scripts\contentWindow.js" />
+    <None Include="Scripts\loading.js" />
+    <None Include="Scripts\main.js" />
+    <None Include="Scripts\music.js" />
+    <None Include="Scripts\photos.js" />
+    <None Include="Scripts\slideImage.js" />
+    <None Include="Scripts\tour.js" />
+    <None Include="Scripts\videos.js" />
     <Content Include="SomethingWicked.asmx" />
-    <Content Include="somethingWicked.js" />
+    <None Include="somethingWicked.js" />
     <Content Include="somethingWicked.min.js">
       <DependentUpon>somethingWicked.js</DependentUpon>
     </Content>
-    <Content Include="SomethingWickedLogo.png" />
-    <Content Include="SQL\Members.sql" />
-    <Content Include="SQL\Music.sql" />
-    <Content Include="SQL\Photos.sql" />
-    <Content Include="SQL\Tour.sql" />
-    <Content Include="SQL\Videos.sql" />
-    <Content Include="style.css" />
+    <Content Include="Images\SomethingWickedLogo.png" />
+    <None Include="SQL\Members.sql" />
+    <None Include="SQL\Music.sql" />
+    <None Include="SQL\Photos.sql" />
+    <None Include="SQL\Tour.sql" />
+    <None Include="SQL\Videos.sql" />
+    <None Include="style.css" />
     <Content Include="style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
@@ -200,17 +172,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Content Include="App_Code\SomethingWicked.cs">
       <SubType>Component</SubType>
     </Content>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

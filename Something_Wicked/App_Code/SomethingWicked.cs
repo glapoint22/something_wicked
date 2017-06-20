@@ -33,7 +33,7 @@ public class SomethingWicked : WebService
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Connection = con;
-            
+
             //Open the connection
             con.Open();
 
@@ -68,7 +68,7 @@ public class SomethingWicked : WebService
     {
         List<Show> schedule = new List<Show>();
 
-        
+
         cmd.CommandText = "GetSchedule";
         SqlDataReader rdr = cmd.ExecuteReader();
 
