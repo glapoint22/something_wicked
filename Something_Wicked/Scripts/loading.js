@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------Loading Service-------------------------------------------------------------------------------------
-app.factory('loading', ['$compile', '$rootScope', function loadingFactory($compile, $rootScope) {
+app.factory('loading', ['$compile', '$rootScope', '$q', function loadingFactory($compile, $rootScope, $q) {
     return {
         show: function () {
             var scope = $rootScope.$new(true);
@@ -12,7 +12,9 @@ app.factory('loading', ['$compile', '$rootScope', function loadingFactory($compi
         },
         hide: function () {
             this.scope.showLoading = false;
-        }
+            this.deferred.resolve();
+        },
+        deferred: $q.defer()
     }
 }]);
 //-------------------------------------------------------------------------------------Loading Directive-------------------------------------------------------------------------------------

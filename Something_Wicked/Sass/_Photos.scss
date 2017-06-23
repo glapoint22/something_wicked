@@ -2,11 +2,23 @@
 
 .photo{
     width: 100%; 
-    vertical-align: top;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .slider{
     @include transition-timing(0.3s);
     height: 100%;
 }
+#media{
+    #photos{
+        img{
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+        }
+        li{
+            background: black;
+        }
+    }
+}
+

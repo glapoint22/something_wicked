@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
-    <script src="somethingWicked.min.js"></script>
+    <script src="somethingWicked.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body id="top" ng-app="somethingWicked">
@@ -118,7 +118,7 @@
                     <div class="section-title">PHOTOS</div>
                     <ul>
                         <li ng-repeat="photo in photos">
-                            <div ng-click="showPhotos(photo.title | uppercase, photo.URL)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
+                            <div ng-click="showPhotos(photo.id, photo.title | lowercase)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
                             <div class="title-bar">
                                 <div class="title">{{photo.title | uppercase}}</div>
                             </div>
@@ -156,7 +156,7 @@
                         </li>
                         <!--Twitter-->
                         <li title="Twitter">
-                            <a target="_blank" href="">
+                            <a target="_blank" href="https://www.twitter.com/smthing_wicked">
                                 <div class="social-media-circle">
                                     <i class="fa fa-twitter" aria-hidden="true"></i>
                                 </div>
@@ -185,7 +185,21 @@
                             </div>
                         </li>
                     </ul>
-                    
+                </div>
+            </div>
+        </div>
+        <div ng-controller="ContentWindowController" class="content-window ng-hide" ng-show="showContentWindow()" ng-click="close()">
+            <div class="window-background">
+                <div class="window" ng-click="stopPropagation($event)">
+                    <div class="title-bar">
+                        <div class="content-title">
+                            {{contentWindow.title | uppercase}}
+                            <span class="close-button" ng-click="close()"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="content-container">
+                        <ng-view></ng-view>
+                    </div>
                 </div>
             </div>
         </div>

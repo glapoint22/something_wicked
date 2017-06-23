@@ -1,6 +1,10 @@
 @import 'Utility';
 
-content-window{
+.content-window{
+    @include transition-timing(0.2s);
+    &.ng-hide{
+        opacity: 0;
+    }
     .window-background{
         background: rgba(0, 0, 0, 0.9); 
         z-index: 20; 
@@ -12,17 +16,12 @@ content-window{
         display: flex; 
         align-items: center; 
         justify-content: center;
-        @include transition-timing(0.2s);
-        &.ng-hide{
-            opacity: 0;
-        }
     }
     .window{
         background: $color5;
         width: 1600px;
         height: 900px; 
         border: 1px solid #332306;
-        border-radius: 15px;
     }
     .title-bar{
         position: relative; 
@@ -31,8 +30,6 @@ content-window{
         height: 40px; 
         @include gradient($color3, $color2);
         border-bottom: 1px solid #332306;
-        border-top-left-radius: inherit;
-        border-top-right-radius: inherit;
     }
     .content-title{
         font-size: 30px; 

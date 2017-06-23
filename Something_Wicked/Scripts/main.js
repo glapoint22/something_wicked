@@ -14,20 +14,9 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
             template: '<iframe allowfullscreen src="{{content.url}}" width="100%" height="100%"></iframe>',
             controller: 'VideosController'
         })
-        .when('/photos', {
+        .when('/photos/:title/:id', {
             templateUrl: 'Templates/photos.html',
-            controller: 'SliderController',
-            resolve: {
-                photos: ['$http', 'contentWindow', function ($http, contentWindow) {
-                    return $http.get('SomethingWicked.asmx/GetPhotos', {
-                        params: {
-                            photosDirectory: contentWindow.content.photosDirectory
-                        }
-                    }).then(function (response) {
-                        return response.data;
-                    });
-                }]
-            }
+            controller: 'SliderController'
         })
         .when('/bios', {
             templateUrl: 'Templates/bio.html',
@@ -49,10 +38,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
         });
 }]);
 //-------------------------------------------------------------------------------------Main Controller-------------------------------------------------------------------------------------
-app.controller('MainController', ['$scope', '$location', '$timeout', '$http', '$q', function ($scope, $location, $timeout, $http, $q) {
-    //Default location
-    $location.path('/');
-
+app.controller('MainController', ['$scope', '$timeout', '$http', '$q', function ($scope, $timeout, $http, $q) {
     $scope.showMobileMenuDropdown = false;
 
     $scope.menuClick = function () {

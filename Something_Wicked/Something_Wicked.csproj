@@ -33,6 +33,18 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="DBCS-Deployment" Order="1">
+          <Destination Path="Data Source=184.168.194.53%3bInitial Catalog=Something_Wicked%3bPersist Security Info=True%3bUser ID=glapoint22%3bPassword=Cyb668622!" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=zorioth\sqlexpress%3bInitial Catalog=Something Wicked%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\DBCS-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +57,7 @@
       <Objects>
       </Objects>
     </PublishDatabaseSettings>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -98,21 +111,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Member_Thumbnails\Amy.png" />
-    <Content Include="Images\Member_Thumbnails\Bron.png" />
-    <Content Include="Images\Member_Thumbnails\Don.png" />
-    <Content Include="Images\Member_Thumbnails\Gabe.png" />
-    <Content Include="Images\Member_Thumbnails\Tyler.png" />
-    <Content Include="Images\Photos\061617\img1.png" />
-    <Content Include="Images\Photos\061617\img2.png" />
-    <Content Include="Images\Photos\061617\img3.png" />
-    <Content Include="Images\Photo_Thumbnails\DozersJune16.png" />
-    <Content Include="Images\Slide_Images\Paramore.png" />
-    <Content Include="Images\Slide_Images\Paramore2.png" />
-    <Content Include="Images\Slide_Images\Paramore3.png" />
-    <Content Include="Images\Video_Thumbnails\Boogie-Oogie-Oogie.png" />
-    <Content Include="Images\Video_Thumbnails\Hot-Stuff.png" />
     <Content Include="index.html" />
+    <Content Include="manager.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -120,7 +120,7 @@
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults" />
-    <None Include="Properties\PublishProfiles\asdf.pubxml" />
+    <None Include="Properties\PublishProfiles\somethingwickedrocks.com - Web Deploy.pubxml" />
     <None Include="Sass\main.scss" />
     <None Include="Sass\_Bio.scss" />
     <None Include="Sass\_ContentWindow.scss" />
@@ -138,6 +138,7 @@
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -155,7 +156,6 @@
     <Content Include="somethingWicked.min.js">
       <DependentUpon>somethingWicked.js</DependentUpon>
     </Content>
-    <Content Include="Images\SomethingWickedLogo.png" />
     <None Include="SQL\Members.sql" />
     <None Include="SQL\Music.sql" />
     <None Include="SQL\Photos.sql" />
@@ -166,10 +166,11 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Templates\bio.html" />
-    <Content Include="Templates\contentWindow.html" />
     <Content Include="Templates\loading.html" />
     <Content Include="Templates\photos.html" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Settings.Designer.cs">
@@ -182,7 +183,12 @@
     </Content>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\Member_Thumbnails\" />
+    <Folder Include="Images\Photos\032517\" />
+    <Folder Include="Images\Slide_Images\" />
+    <Folder Include="Images\Video_Thumbnails\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

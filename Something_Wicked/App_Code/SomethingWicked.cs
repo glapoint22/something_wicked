@@ -136,9 +136,9 @@ public class SomethingWicked : WebService
         while (rdr.Read())
         {
             Media photo = new Media();
+            photo.id = rdr["ID"].ToString();
             photo.title = rdr["Title"].ToString();
             photo.thumbnail = rdr["Thumbnail"].ToString();
-            photo.URL = rdr["URL"].ToString();
             photos.Add(photo);
         }
         rdr.Close();
@@ -149,8 +149,13 @@ public class SomethingWicked : WebService
     [WebMethod]
     public void GetPhotos(string photosDirectory)
     {
-        //Grab all the images that are in the specified photos folder
-        string[] photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory).Select(file => photosDirectory + Path.GetFileName(file)).ToArray();
+        string[] photos = new string[0];
+
+        if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory)){
+            //Grab all the images that are in the specified photos folder
+            photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory).Select(file => photosDirectory + Path.GetFileName(file)).ToArray();
+        }
+
 
         //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -167,7 +172,7 @@ public class SomethingWicked : WebService
         while (rdr.Read())
         {
             Media member = new Media();
-            member.id = (int)rdr["ID"];
+            member.id = rdr["ID"].ToString();
             member.title = rdr["Name"].ToString();
             member.thumbnail = rdr["Thumbnail"].ToString();
             members.Add(member);
@@ -226,7 +231,7 @@ public struct Song
 
 public struct Media
 {
-    public int id;
+    public string id;
     public string title;
     public string thumbnail;
     public string URL;

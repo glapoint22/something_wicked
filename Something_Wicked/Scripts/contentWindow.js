@@ -13,48 +13,63 @@ app.factory('contentWindow', ['loading', '$rootScope', '$compile', '$location', 
             scope.content = content;
 
             //Create the content window directive
-            contentWindow = $compile('<content-window>')(scope);
-            angular.element(document.body).append(contentWindow);
+            //contentWindow = $compile('<content-window>')(scope);
+            //angular.element(document.body).append(contentWindow);
 
             //Show the loading screen
-            loading.show();
+            //loading.show();
 
             //Function for closing the content window
-            scope.close = function () {
-                scope.showWindow = false;
-                $location.path('/');
-            }
+            
 
             //Assign the object properties
             this.scope = scope;
             this.content = content;
 
-            scope.stopPropagation = function ($event) {
-                $event.stopPropagation();
-                $event.preventDefault();
-            }
+            
         },
         //Function to show the content window
         show: function () {
-            loading.hide();
-            this.scope.showWindow = true;
+            //loading.hide();
+            //this.scope.showWindow = true;
         }
+    }
+}]);
+app.controller('ContentWindowController', ['$scope', '$location', function ($scope, $location) {
+    $scope.contentWindow = {
+        show: false,
+        title: ''
+    };
+
+    $scope.close = function () {
+        $scope.contentWindow.show = false;
+        $location.path('/');
+    }
+
+    $scope.stopPropagation = function ($event) {
+        $event.stopPropagation();
+        $event.preventDefault();
+    }
+
+    $scope.showContentWindow = function () {
+        if ($location.url() === '/') $scope.contentWindow.show = false;
+        return $scope.contentWindow.show;
     }
 }]);
 //-------------------------------------------------------------------------------------Content Window Directive-------------------------------------------------------------------------------------
-app.directive('contentWindow', ['$animate', function ($animate) {
-    return {
-        restrict: 'E',
-        templateUrl: 'Templates/contentWindow.html',
-        link: function (scope, element, attributes) {
-            //This event is triggered when ng-hide is added
-            //The content window is then destroyed
-            $animate.on('addClass', element, function callback(ele, phase) {
-                if (phase === 'close') {
-                    scope.$destroy();
-                    element.remove();
-                }
-            });
-        }
-    }
-}]);
+//app.directive('contentWindow', ['$animate', function ($animate) {
+//    return {
+//        restrict: 'E',
+//        templateUrl: 'Templates/contentWindow.html',
+//        link: function (scope, element, attributes) {
+//            //This event is triggered when ng-hide is added
+//            //The content window is then destroyed
+//            $animate.on('addClass', element, function callback(ele, phase) {
+//                if (phase === 'close') {
+//                    scope.$destroy();
+//                    element.remove();
+//                }
+//            });
+//        }
+//    }
+//}]);

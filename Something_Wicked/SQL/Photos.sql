@@ -1,9 +1,8 @@
 CREATE TABLE Photos
 (
-	ID INT IDENTITY(1,1) PRIMARY KEY,
+	ID VARCHAR(50) PRIMARY KEY,
 	Title VARCHAR(50) NOT NULL,
 	Thumbnail VARCHAR(50) NOT NULL,
-	URL VARCHAR(2083) NOT NULL
 )
 
 
@@ -12,9 +11,13 @@ CREATE PROC GetPhotos
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT Title, Thumbnail, URL
+	SELECT ID, Title, Thumbnail
 	FROM Photos
 	ORDER BY ID DESC
 END
 
 EXEC GetPhotos
+
+select * from Photos
+drop table Photos
+drop proc GetPhotos
