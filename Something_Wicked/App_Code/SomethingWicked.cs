@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 public class SomethingWicked : WebService
 {
     private string slideImages = "Images/Slide_Images/";
+    private string photosDirectory = "/Images/Photos/";
 
     [WebMethod]
     public void GetData()
@@ -51,7 +52,7 @@ public class SomethingWicked : WebService
         JavaScriptSerializer js = new JavaScriptSerializer();
         string json = js.Serialize(data);
         json = Regex.Replace(json, @"\""\\/Date\((\d+)\)\\/\""", "$1");
-        json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
+        //json = Regex.Replace(json, "\\watch\\?\\w+=(.{11})(\\\\\\w+=[\\w\\.-]+)*", "embed/$1?autoplay=1");
         Context.Response.Write(json);
     }
 
@@ -98,7 +99,7 @@ public class SomethingWicked : WebService
             song.name = rdr["Song"].ToString();
             song.artist = rdr["Artist"].ToString();
             song.genre = rdr["Genre"].ToString();
-            song.URL = rdr["URL"].ToString();
+            song.videoID = rdr["videoID"].ToString();
             songs.Add(song);
         }
 
@@ -116,9 +117,9 @@ public class SomethingWicked : WebService
         while (rdr.Read())
         {
             Media video = new Media();
+            video.id = rdr["ID"].ToString();
             video.title = rdr["Title"].ToString();
-            video.thumbnail = rdr["Thumbnail"].ToString();
-            video.URL = rdr["URL"].ToString();
+            video.thumbnail = string.Format("http://img.youtube.com/vi/{0}/hqdefault.jpg", video.id);
             videos.Add(video);
         }
 
@@ -147,17 +148,40 @@ public class SomethingWicked : WebService
 
 
     [WebMethod]
-    public void GetPhotos(string photosDirectory)
+    public void GetPhotos(string id)
     {
-        string[] photos = new string[0];
+        Photos photos = new Photos();
+        photos.list = new string[0];
 
-        if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory)){
+        if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + photosDirectory + id)){
+
+            string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+            
+
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand("GetPhotosTitle", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = id;
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read())
+                {
+                    photos.title = rdr["Title"].ToString();
+                }
+
+                con.Close();
+            }
+
+
             //Grab all the images that are in the specified photos folder
-            photos = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + photosDirectory).Select(file => photosDirectory + Path.GetFileName(file)).ToArray();
+            photos.list = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + photosDirectory + id).Select(file => photosDirectory  + id  + "/" + Path.GetFileName(file)).ToArray();
         }
 
 
-        //Serialize the images array to json and send the response
         JavaScriptSerializer js = new JavaScriptSerializer();
         Context.Response.Write(js.Serialize(photos));
     }
@@ -184,10 +208,10 @@ public class SomethingWicked : WebService
 
 
     [WebMethod]
-    public void GetBio(int memberID)
+    public void GetBio(string name)
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        string bio = string.Empty;
+        Member member = new Member();
 
         using (SqlConnection con = new SqlConnection(cs))
         {
@@ -195,20 +219,55 @@ public class SomethingWicked : WebService
 
             SqlCommand cmd = new SqlCommand("GetBio", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@memberID", SqlDbType.Int).Value = memberID;
+            cmd.Parameters.Add("@name", SqlDbType.VarChar).Value = name;
 
             SqlDataReader rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
             {
-                bio = rdr["Bio"].ToString();
+                member.bio = rdr["Bio"].ToString();
+                member.name = rdr["Name"].ToString();
+                member.thumbnail = rdr["Thumbnail"].ToString();
             }
 
             con.Close();
         }
 
-        Context.Response.Write(bio);
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        Context.Response.Write(js.Serialize(member));
     }
+
+
+    [WebMethod]
+    public void GetVideo(string id)
+    {
+        string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+        Video video = new Video();
+
+        using (SqlConnection con = new SqlConnection(cs))
+        {
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand("GetVideo", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                video.title = rdr["Title"].ToString();
+                video.url = string.Format("https://www.youtube.com/embed/{0}?autoplay=1", rdr["ID"].ToString());
+            }
+
+            con.Close();
+        }
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        Context.Response.Write(js.Serialize(video));
+    }
+
+
 }
 
 
@@ -226,7 +285,7 @@ public struct Song
     public string name;
     public string artist;
     public string genre;
-    public string URL;
+    public string videoID;
 }
 
 public struct Media
@@ -234,7 +293,6 @@ public struct Media
     public string id;
     public string title;
     public string thumbnail;
-    public string URL;
 }
 
 public struct Data
@@ -245,4 +303,23 @@ public struct Data
     public List<Media> videos;
     public List<Media> photos;
     public List<Media> members;
+}
+
+public struct Photos
+{
+    public string title;
+    public string[] list;
+}
+
+public struct Member
+{
+    public string bio;
+    public string name;
+    public string thumbnail;
+
+}
+public struct Video
+{
+    public string title;
+    public string url;
 }

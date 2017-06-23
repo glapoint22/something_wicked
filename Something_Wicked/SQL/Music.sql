@@ -32,7 +32,7 @@ CREATE PROC GetMusic
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT Song, Artist, Genre, URL
+	SELECT Song, Artist, Genre, videoID
 	FROM Songs
 	INNER JOIN Genres ON 
 	Songs.GenreID = Genres.ID
@@ -42,5 +42,11 @@ END
 
 exec getmusic
 
-ALTER TABLE SONGS
-ADD VideoID INT NULL FOREIGN KEY REFERENCES VIDEOS(ID)
+ALTER TABLE Songs
+ADD CONSTRAINT FK_Songs_Videos FOREIGN KEY (VideoID)     
+REFERENCES Videos (ID)
+
+DROP PROC GetMusic
+
+select * from videos
+

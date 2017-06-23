@@ -10,28 +10,17 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     'https://www.youtube.com/**'
     ]);
     $routeProvider
-        .when('/videos', {
-            template: '<iframe allowfullscreen src="{{content.url}}" width="100%" height="100%"></iframe>',
-            controller: 'VideosController'
+        .when('/videos/:id', {
+            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%"></iframe>',
+            controller: 'VideoController'
         })
-        .when('/photos/:title/:id', {
+        .when('/photos/:id', {
             templateUrl: 'Templates/photos.html',
             controller: 'SliderController'
         })
-        .when('/bios', {
+        .when('/bios/:name', {
             templateUrl: 'Templates/bio.html',
-            controller: 'BiosController',
-            resolve: {
-                bio: ['$http', 'contentWindow', function ($http, contentWindow) {
-                    return $http.get('SomethingWicked.asmx/GetBio', {
-                        params: {
-                            memberID: contentWindow.content.memberID
-                        }
-                    }).then(function (response) {
-                        return response.data;
-                    });
-                }]
-            }
+            controller: 'BiosController'
         })
         .otherwise({
             redirectTo: '/'

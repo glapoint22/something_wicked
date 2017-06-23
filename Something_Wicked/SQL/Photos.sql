@@ -16,8 +16,17 @@ BEGIN
 	ORDER BY ID DESC
 END
 
-EXEC GetPhotos
 
-select * from Photos
-drop table Photos
-drop proc GetPhotos
+
+
+
+CREATE PROC GetPhotosTitle
+(
+	@ID VARCHAR(50)
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT Title FROM Photos
+	WHERE ID = @ID
+END

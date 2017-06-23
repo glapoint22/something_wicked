@@ -1,25 +1,35 @@
 CREATE TABLE Videos
 (
-	ID INT IDENTITY(1,1) PRIMARY KEY,
+	ID VARCHAR(20) PRIMARY KEY,
 	Title VARCHAR(50) NOT NULL,
-	Thumbnail VARCHAR(50) NOT NULL,
-	URL VARCHAR(2083) NOT NULL
+	Date DATETIME NOT NULL DEFAULT(GETDATE())
 )
 
 INSERT INTO Videos
-(Title, Thumbnail, URL)
-VALUES('Boogie Oogie Oogie', 'Boogie-Oogie-Oogie.png', 'https://www.youtube.com/watch?v=XlH7y9NEu0c&feature=youtu.be')
+(ID, Title)
+VALUES('XlH7y9NEu0c', 'Boogie Oogie Oogie')
 
 INSERT INTO Videos
-(Title, Thumbnail, URL)
-VALUES('Hot Stuff', 'Hot-Stuff.png', 'https://www.youtube.com/watch?v=4tWCSPJ95R8')
+(ID, Title)
+VALUES('4tWCSPJ95R8', 'Hot Stuff')
 
 CREATE PROC GetVideos
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT Title, Thumbnail, URL
-	FROM Videos
+	SELECT ID, Title
+	FROM VIDEOS
+	ORDER BY Date DESC
 END
 
-EXEC GetVideos
+CREATE PROC GetVideo
+(
+	@id VARCHAR(20)
+)
+AS
+BEGIN
+	SET NOCOUNT ON
+	SELECT ID, Title
+	FROM VIDEOS
+	WHERE ID = @id
+END

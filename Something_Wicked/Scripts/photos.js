@@ -8,42 +8,46 @@ app.controller('PhotosController', ['$scope', '$location', function ($scope, $lo
     //Show the photos in the content window
     $scope.showPhotos = function (id, title) {
         //Set the url as photos
-        $location.path('/photos/' + title + '/' + id);
+        $location.path('/photos/' + id);
     }
 }]);
 //-------------------------------------------------------------------------------------Slider Controller-------------------------------------------------------------------------------------
 app.controller('SliderController', ['$scope', '$http', '$routeParams', 'loading', '$location', function ($scope, $http, $routeParams, loading, $location) {
     var slider, xPos;
+
+    //Show the loading
     loading.show();
 
     $http.get('SomethingWicked.asmx/GetPhotos', {
         params: {
-            photosDirectory: 'Images/Photos/' + $routeParams.id + '/'
+            id: $routeParams.id
         }
+    //Success
     }).then(function success(response) {
-        if (response.data.length === 0) {
+        //If there were no images
+        if (response.data.list.length === 0) {
             $location.path('/');
             loading.hide();
             return;
         }
 
-
         //Initialize the properties and variables
-        $scope.photos = response.data;
+        $scope.photos = response.data.list;
+        $scope.contentWindow.title = response.data.title;
         xPos = 0;
         slider = angular.element.find('.slider');
         $scope.loadCounter = 0;
+    //Fail
     }, function fail(response) {
         $location.path('/');
         loading.hide();
     });
 
+    //Images are finished loading. Show the content window
     loading.deferred.promise.then(function () {
-        $scope.contentWindow.title = $routeParams.title;
         $scope.contentWindow.show = true;
     });
 
-    
 
     //This function moves the slider left and right when the arrow buttons are pressed
     $scope.moveSlider = function (direction) {
@@ -64,12 +68,10 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', 'loading'
 //-----------------------------------------------------------------------------------Check Loading Directive-------------------------------------------------------------------------------------
 app.directive('checkLoading', ['loading', function (loading) {
     //This directive is used to check when all images are loaded.
-    //When all images are loaded, show the content window
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
             //When this image is loaded, check to see if this is the last image to be loaded.
-            //If so, show the content window
             element.on('load', function () {
                 scope.$parent.loadCounter++;
                 if (scope.$parent.loadCounter === scope.$parent.photos.length) {
@@ -77,7 +79,6 @@ app.directive('checkLoading', ['loading', function (loading) {
                     scope.$apply();
                 }
             });
-            
         }
     };
 }]);

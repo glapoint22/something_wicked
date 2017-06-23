@@ -90,7 +90,7 @@
                         <td>{{song.artist | uppercase}}</td>
                         <td>{{song.genre | uppercase}}</td>
                         <td>
-                            <span ng-show="song.URL !== ''" ng-click="showVideo(song.name | uppercase, song.URL)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
+                            <span ng-show="song.videoID !== ''" ng-click="showVideo(song.name | uppercase, song.URL)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
                         </td>
                     </tr>
                 </table>
@@ -103,7 +103,7 @@
                     <div class="section-title">VIDEOS</div>
                     <ul>
                         <li ng-repeat="video in videos">
-                            <div ng-click="showVideo(video.title | uppercase, video.URL)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
+                            <div ng-click="showVideo(video.id)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
                             <div class="title-bar">
                                 <div class="title">{{video.title | uppercase}}</div>
                             </div>
@@ -118,7 +118,7 @@
                     <div class="section-title">PHOTOS</div>
                     <ul>
                         <li ng-repeat="photo in photos">
-                            <div ng-click="showPhotos(photo.id, photo.title | lowercase)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
+                            <div ng-click="showPhotos(photo.id)" class="icon"><img ng-src="{{photo.thumbnail}}" /></div>
                             <div class="title-bar">
                                 <div class="title">{{photo.title | uppercase}}</div>
                             </div>
@@ -133,7 +133,7 @@
                     <div class="section-title">BIOS</div>
                     <ul>
                         <li ng-repeat="member in members">
-                            <div ng-click="showBio(member.title | uppercase, member.id, member.thumbnail)" class="icon"><img src="{{member.thumbnail}}" /></div>
+                            <div ng-click="showBio(member.title)" class="icon"><img src="{{member.thumbnail}}" /></div>
                             <div class="title-bar">
                                 <div class="title">{{member.title | uppercase}}</div>
                             </div>
@@ -188,6 +188,7 @@
                 </div>
             </div>
         </div>
+        <!--Content Window-->
         <div ng-controller="ContentWindowController" class="content-window ng-hide" ng-show="showContentWindow()" ng-click="close()">
             <div class="window-background">
                 <div class="window" ng-click="stopPropagation($event)">

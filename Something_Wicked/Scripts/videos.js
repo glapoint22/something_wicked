@@ -9,15 +9,41 @@ app.controller('VideosController', ['$scope', 'contentWindow', '$location', '$ro
     
 
     //Show the video in the content window
-    $scope.showVideo = function (title, url) {
-        contentWindow.set({ title: title, url: url });
-
-        $location.path('/videos');
-        $rootScope.$on('$viewContentLoaded', function (event) {
-            angular.element(document).find('iframe').on('load', function () {
-                contentWindow.show();
-                $scope.$apply();
-            });
-        });
+    $scope.showVideo = function (id) {
+        $location.path('/videos/' + id);
     }
+}]);
+//-------------------------------------------------------------------------------------Video Controller-------------------------------------------------------------------------------------
+app.controller('VideoController', ['$scope', '$http', '$location', '$rootScope', 'loading', '$routeParams', function ($scope, $http, $location, $rootScope, loading, $routeParams) {
+    //Show the loading
+    loading.show();
+
+
+    //Get the bio
+    $http.get('SomethingWicked.asmx/GetVideo', {
+        params: {
+            id: $routeParams.id
+        }
+    }).then(function (response) {
+        ////If there is no bio
+        //if (response.data.bio === null) {
+        //    $location.path('/');
+        //    loading.hide();
+        //    return;
+        //}
+
+
+        $scope.contentWindow.title = response.data.title;
+        $scope.url = response.data.url;
+    });
+
+
+
+    $rootScope.$on('$viewContentLoaded', function (event) {
+        angular.element(document).find('iframe').on('load', function () {
+            loading.hide();
+            $scope.contentWindow.show = true;
+            $scope.$apply();
+        });
+    });
 }]);

@@ -27,15 +27,19 @@ select * from bios
 
 CREATE PROC GetBio
 (
-	@memberID int
+	@name VARCHAR(20)
 )
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT Bio
+	SELECT Name, Bio, Thumbnail
 	FROM Bios
-	WHERE MemberID = @memberID
+	INNER JOIN Members ON
+	Bios.MemberID = Members.ID
+	WHERE MemberID = (SELECT ID FROM Members WHERE Name = @name)
 END
 
 
-drop proc getbio
+
+
+
