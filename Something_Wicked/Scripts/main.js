@@ -22,6 +22,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
             templateUrl: 'Templates/bio.html',
             controller: 'BiosController'
         })
+        .when('/contact', {
+            templateUrl: 'Templates/contact.html',
+            controller: 'ContactController'
+        })
         .otherwise({
             redirectTo: '/'
         });

@@ -128,7 +128,7 @@
     <None Include="Sass\_Music.scss" />
     <None Include="Sass\_NavigationBar.scss" />
     <None Include="Sass\_Photos.scss" />
-    <None Include="Sass\_SlideImage.scss" />
+    <None Include="Sass\_ShowcaseImage.scss" />
     <None Include="Sass\_SocialMedia.scss" />
     <None Include="Sass\_Tour.scss" />
     <None Include="Sass\_Utility.scss" />
@@ -148,9 +148,10 @@
     <None Include="Scripts\main.js" />
     <None Include="Scripts\music.js" />
     <None Include="Scripts\photos.js" />
-    <None Include="Scripts\slideImage.js" />
+    <None Include="Scripts\showcaseImage.js" />
     <None Include="Scripts\tour.js" />
     <None Include="Scripts\videos.js" />
+    <Content Include="Scripts\contact.js" />
     <Content Include="SomethingWicked.asmx" />
     <None Include="somethingWicked.js" />
     <Content Include="somethingWicked.min.js">
@@ -166,6 +167,7 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Templates\bio.html" />
+    <Content Include="Templates\contact.html" />
     <Content Include="Templates\loading.html" />
     <Content Include="Templates\photos.html" />
     <Content Include="Web.config">
@@ -186,8 +188,7 @@
   <ItemGroup>
     <Folder Include="Images\Member_Thumbnails\" />
     <Folder Include="Images\Photos\032517\" />
-    <Folder Include="Images\Slide_Images\" />
-    <Folder Include="Images\Video_Thumbnails\" />
+    <Folder Include="Images\Showcase_Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

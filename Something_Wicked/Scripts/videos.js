@@ -39,11 +39,9 @@ app.controller('VideoController', ['$scope', '$http', '$location', 'loading', '$
 
 
     //When loaded
-    $scope.$on('$viewContentLoaded', function (event) {
-        angular.element(document).find('iframe').on('load', function () {
-            loading.hide();
-            $scope.contentWindow.show = true;
-            $scope.$apply();
-        });
+    angular.element(document).find('iframe').on('load', function () {
+        loading.hide();
+        $scope.contentWindow.show = true;
+        $scope.$apply();
     });
 }]);

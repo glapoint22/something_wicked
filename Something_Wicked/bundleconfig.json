@@ -10,7 +10,8 @@
       "Scripts/contentWindow.js",
       "Scripts/loading.js",
       "Scripts/photos.js",
-      "Scripts/bios.js"
+      "Scripts/bios.js",
+      "Scripts/contact.js"
     ]
   }
 ]
