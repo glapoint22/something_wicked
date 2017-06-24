@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
-    <script src="somethingWicked.js"></script>
+    <script src="somethingWicked.min.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body id="top" ng-app="somethingWicked">
@@ -38,10 +38,10 @@
             <div ng-click="scrollTo('bios')" class="mobile-nav">BIOS</div>
         </div>
 
-        <!--Slide-->
-        <div ng-controller="SlideController">
-            <div class="slide-img-container" set-height>
-                <div ng-repeat="image in images" class="slide-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
+        <!--Showcase Images-->
+        <div ng-controller="ShowcaseController">
+            <div class="showcase-img-container" set-height>
+                <div ng-repeat="image in images" class="showcase-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
 
                 <!--Left arrow-->
                 <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
@@ -83,14 +83,14 @@
                         <th ng-click="sort('name')">SONG<div ng-class="getSortClass('name')"></div></th>
                         <th ng-click="sort('artist')">ARTIST<div ng-class="getSortClass('artist')"></div></th>
                         <th ng-click="sort('genre')">GENRE<div ng-class="getSortClass('genre')"></div></th>
-                        <th ng-click="sort('URL')">VIDEO<div ng-class="getSortClass('URL')"></div></th>
+                        <th ng-click="sort('videoID')">VIDEO<div ng-class="getSortClass('videoID')"></div></th>
                     </tr>
                     <tr ng-repeat="song in songs | orderBy: sortColumn: isDescending">
                         <td>{{song.name | uppercase}}</td>
                         <td>{{song.artist | uppercase}}</td>
                         <td>{{song.genre | uppercase}}</td>
                         <td>
-                            <span ng-show="song.videoID !== ''" ng-click="showVideo(song.name | uppercase, song.URL)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
+                            <span ng-show="song.videoID !== ''" ng-click="showVideo(song.videoID)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
                         </td>
                     </tr>
                 </table>

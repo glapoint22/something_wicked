@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 [System.Web.Script.Services.ScriptService]
 public class SomethingWicked : WebService
 {
-    private string slideImages = "Images/Slide_Images/";
+    private string showcaseImages = "Images/Showcase_Images/";
     private string photosDirectory = "/Images/Photos/";
 
     [WebMethod]
@@ -29,7 +29,7 @@ public class SomethingWicked : WebService
 
         using (SqlConnection con = new SqlConnection(cs))
         {
-            data.images = GetSlideImages();
+            data.images = GetShowcaseImages();
 
             SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.StoredProcedure;
@@ -58,10 +58,10 @@ public class SomethingWicked : WebService
 
 
 
-    private string[] GetSlideImages()
+    private string[] GetShowcaseImages()
     {
-        //Grab all the images that are in the slide images folder
-        return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + slideImages).Select(file => slideImages + Path.GetFileName(file)).ToArray();
+        //Grab all the images that are in the showcase images folder
+        return Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "/" + showcaseImages).Select(file => showcaseImages + Path.GetFileName(file)).ToArray();
     }
 
 

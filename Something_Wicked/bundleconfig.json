@@ -3,7 +3,7 @@
     "outputFileName": "somethingWicked.js",
     "inputFiles": [
       "Scripts/main.js",
-      "Scripts/slideImage.js",
+      "Scripts/showcaseImage.js",
       "Scripts/tour.js",
       "Scripts/music.js",
       "Scripts/videos.js",

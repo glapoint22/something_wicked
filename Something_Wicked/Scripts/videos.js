@@ -1,5 +1,5 @@
 //-------------------------------------------------------------------------------------Videos Controller-------------------------------------------------------------------------------------
-app.controller('VideosController', ['$scope', 'contentWindow', '$location', '$rootScope', function ($scope, contentWindow, $location, $rootScope) {
+app.controller('VideosController', ['$scope', '$location', function ($scope, $location) {
     //Get the video urls
     if ($scope.deferred) {
         $scope.deferred.promise.then(function (response) {
@@ -14,7 +14,7 @@ app.controller('VideosController', ['$scope', 'contentWindow', '$location', '$ro
     }
 }]);
 //-------------------------------------------------------------------------------------Video Controller-------------------------------------------------------------------------------------
-app.controller('VideoController', ['$scope', '$http', '$location', '$rootScope', 'loading', '$routeParams', function ($scope, $http, $location, $rootScope, loading, $routeParams) {
+app.controller('VideoController', ['$scope', '$http', '$location', 'loading', '$routeParams', function ($scope, $http, $location, loading, $routeParams) {
     //Show the loading
     loading.show();
 
@@ -25,21 +25,21 @@ app.controller('VideoController', ['$scope', '$http', '$location', '$rootScope',
             id: $routeParams.id
         }
     }).then(function (response) {
-        ////If there is no bio
-        //if (response.data.bio === null) {
-        //    $location.path('/');
-        //    loading.hide();
-        //    return;
-        //}
+        //If there is no url
+        if (response.data.url === null) {
+            $location.path('/');
+            loading.hide();
+            return;
+        }
 
-
+        //Set the title and the video url
         $scope.contentWindow.title = response.data.title;
         $scope.url = response.data.url;
     });
 
 
-
-    $rootScope.$on('$viewContentLoaded', function (event) {
+    //When loaded
+    $scope.$on('$viewContentLoaded', function (event) {
         angular.element(document).find('iframe').on('load', function () {
             loading.hide();
             $scope.contentWindow.show = true;

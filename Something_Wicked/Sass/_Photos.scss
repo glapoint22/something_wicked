@@ -9,16 +9,16 @@
     @include transition-timing(0.3s);
     height: 100%;
 }
-#media{
-    #photos{
-        img{
-            width: 100%;
-            height: 150px;
-            object-fit: contain;
+#photos-slider{
+    .img-arrow-circle{
+        top: 50%;
+        &.img-arrow-circle-left{
+            left: 3%;
         }
-        li{
-            background: black;
+        &.img-arrow-circle-right{
+            right: 3%;
         }
     }
 }
+
 

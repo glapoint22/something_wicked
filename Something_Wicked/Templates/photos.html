@@ -3,12 +3,16 @@
     <img ng-repeat="photo in photos" class="photo" src="{{photo}}" check-loading />
 </div>
 
-<!--Arrow Buttons-->
-<div class="img-arrow-circle" style="position: absolute; top: 50%; left: 3%" ng-click="moveSlider(1)">
-    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+<div id="photos-slider">
+    <!--Arrow Buttons-->
+    <div class="img-arrow-circle img-arrow-circle-left" ng-click="moveSlider(1)">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    </div>
+    <div class="img-arrow-circle img-arrow-circle-right" ng-click="moveSlider(-1)">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+    </div>
 </div>
-<div class="img-arrow-circle" style="position: absolute; top: 50%; right: 3%" ng-click="moveSlider(-1)">
-    <i class="fa fa-chevron-right" aria-hidden="true"></i>
-</div>
+
+
 
 
