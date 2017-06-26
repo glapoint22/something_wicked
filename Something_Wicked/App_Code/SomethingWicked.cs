@@ -178,7 +178,8 @@ public class SomethingWicked : WebService
 
 
             //Grab all the images that are in the specified photos folder
-            photos.list = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + photosDirectory + id).Select(file => photosDirectory  + id  + "/" + Path.GetFileName(file)).ToArray();
+            photos.list = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + photosDirectory + id).Select(file => Path.GetFileName(file)).ToArray();
+            photos.path = photosDirectory;
         }
 
 
@@ -309,6 +310,7 @@ public struct Photos
 {
     public string title;
     public string[] list;
+    public string path;
 }
 
 public struct Member

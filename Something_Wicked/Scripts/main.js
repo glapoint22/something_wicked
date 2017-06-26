@@ -14,9 +14,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
             template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%" style="border: none"></iframe>',
             controller: 'VideoController'
         })
-        .when('/photos/:id', {
+        .when('/photos/:id?', {
             templateUrl: 'Templates/photos.html',
-            controller: 'SliderController'
+            controller: 'SliderController',
+            reloadOnSearch: false
         })
         .when('/bios/:name', {
             templateUrl: 'Templates/bio.html',

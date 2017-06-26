@@ -3,7 +3,8 @@ app.controller('ContentWindowController', ['$scope', '$location', function ($sco
     $scope.contentWindow = {
         show: false,
         title: '',
-        isLoading: true
+        load: false,
+        itemIndex: 0
     };
 
     $scope.close = function () {
@@ -22,14 +23,22 @@ app.controller('ContentWindowController', ['$scope', '$location', function ($sco
     }
 }]);
 //-----------------------------------------------------------------------------------Check Loading Directive-------------------------------------------------------------------------------------
-app.directive('checkLoading',function () {
+app.directive('checkLoading', function () {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
+            scope.$watch('contentWindow.itemIndex === $index', function (newValue, oldValue) {
+                if (newValue) {
+                    if (!element[0].complete) scope.contentWindow.load = true;
+                }
+            });
+
+
             element.on('load', function () {
-                console.log(scope.$index);
-                //loading.hide();
-                //scope.$apply();
+                if (scope.contentWindow.itemIndex === scope.$index) {
+                    scope.contentWindow.load = false;
+                    scope.$apply();
+                }
             });
         }
     };
