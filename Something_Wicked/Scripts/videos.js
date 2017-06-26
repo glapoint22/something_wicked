@@ -14,11 +14,7 @@ app.controller('VideosController', ['$scope', '$location', function ($scope, $lo
     }
 }]);
 //-------------------------------------------------------------------------------------Video Controller-------------------------------------------------------------------------------------
-app.controller('VideoController', ['$scope', '$http', '$location', 'loading', '$routeParams', function ($scope, $http, $location, loading, $routeParams) {
-    //Show the loading
-    loading.show();
-
-
+app.controller('VideoController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
     //Get the bio
     $http.get('SomethingWicked.asmx/GetVideo', {
         params: {
@@ -28,20 +24,12 @@ app.controller('VideoController', ['$scope', '$http', '$location', 'loading', '$
         //If there is no url
         if (response.data.url === null) {
             $location.path('/');
-            loading.hide();
             return;
         }
 
         //Set the title and the video url
         $scope.contentWindow.title = response.data.title;
         $scope.url = response.data.url;
-    });
-
-
-    //When loaded
-    angular.element(document).find('iframe').on('load', function () {
-        loading.hide();
         $scope.contentWindow.show = true;
-        $scope.$apply();
     });
 }]);

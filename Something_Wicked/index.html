@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js"></script>
-    <script src="somethingWicked.min.js"></script>
+    <script src="somethingWicked.js"></script>
     <link href="style.min.css" rel="stylesheet" />
 </head>
 <body id="top" ng-app="somethingWicked">
@@ -24,7 +24,6 @@
                 <div ng-click="scrollTo('videos')" class="nav">VIDEOS</div>
                 <div ng-click="scrollTo('photos')" class="nav">PHOTOS</div>
                 <div ng-click="scrollTo('bios')" class="nav">BIOS</div>
-                <a ng-href="/contact" class="nav">CONTACT</a>
             </div>
             <div class="mobile-menu" ng-click="menuClick()">
                 <i class="fa fa-align-justify" aria-hidden="true"></i>
@@ -192,14 +191,15 @@
         <!--Content Window-->
         <div ng-controller="ContentWindowController" class="content-window ng-hide" ng-show="showContentWindow()" ng-click="close()">
             <div class="window-background">
-                <div class="window" ng-click="stopPropagation($event)">
-                    <div class="title-bar">
+                <div class="window">
+                    <div class="title-bar" ng-click="stopPropagation($event)">
                         <div class="content-title">
                             {{contentWindow.title | uppercase}}
                             <span class="close-button" ng-click="close()"><i class="fa fa-times" aria-hidden="true"></i></span>
                         </div>
                     </div>
-                    <div class="content-container">
+                    <div class="content-container" ng-click="stopPropagation($event)">
+                        <div style="background: red; width: 100%; height: 100%; position: absolute; z-index: 1000" ng-show="contentWindow.isLoading"></div>
                         <ng-view></ng-view>
                     </div>
                 </div>

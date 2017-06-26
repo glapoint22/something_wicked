@@ -3,7 +3,10 @@
 #media{
     img{
         width: 100%;
+        height: 150px;
         display: block;
+        object-fit: contain;
+        background: $color3;
     }
     ul{
         list-style: none; 
@@ -17,6 +20,7 @@
     }
     .title-bar{
         @include gradient($color3, $color2);
+        border-top: 1px solid $color2;
     }
     .title{
         letter-spacing: 0; 

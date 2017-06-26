@@ -8,10 +8,8 @@
       "Scripts/music.js",
       "Scripts/videos.js",
       "Scripts/contentWindow.js",
-      "Scripts/loading.js",
       "Scripts/photos.js",
-      "Scripts/bios.js",
-      "Scripts/contact.js"
+      "Scripts/bios.js"
     ]
   }
 ]

@@ -4,25 +4,26 @@
     height: 100%; 
     white-space: normal; 
     background: $color5;
-    border: 2px solid $color1;
-    box-sizing: border-box;
     padding-bottom: 20px;
     .bio-container{
         height: 75%; 
         background: $color5; 
-        margin: 0 25px 0 25px;
+        margin: 20px 25px 0 25px;
         overflow: auto;
     }
     .bio-text{
         padding: 5px 0 5vw 0; 
         font-size: 28px; 
         color: $color3;
+        font-family: Nyala;
     }
     img{
-        margin: 10px auto; 
+        margin: auto; 
         display: block; 
         border-radius: 50%; 
-        border: 2px solid $color1;
+        border: 2px solid #b9b9b9;
+        position: relative;
+        top: 10px;
     }
     @media screen and (max-width: 1023px) {
         img{
@@ -32,7 +33,7 @@
             font-size: 20px; 
         }
         .bio-container{
-            margin: 0 10px 0 10px;
+            margin: 20px 10px 0 10px;
         }
     }
     @media screen and (max-width: 511px) {
@@ -40,7 +41,8 @@
             font-size: 12px; 
         }
         .bio-container{
-            margin: 0 5px 0 5px;
+            margin: 20px 5px 0 5px;
         }
     }
 }
+    

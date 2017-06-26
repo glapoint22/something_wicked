@@ -144,14 +144,12 @@
   <ItemGroup>
     <None Include="Scripts\bios.js" />
     <None Include="Scripts\contentWindow.js" />
-    <None Include="Scripts\loading.js" />
     <None Include="Scripts\main.js" />
     <None Include="Scripts\music.js" />
     <None Include="Scripts\photos.js" />
     <None Include="Scripts\showcaseImage.js" />
     <None Include="Scripts\tour.js" />
     <None Include="Scripts\videos.js" />
-    <Content Include="Scripts\contact.js" />
     <Content Include="SomethingWicked.asmx" />
     <None Include="somethingWicked.js" />
     <Content Include="somethingWicked.min.js">
@@ -167,8 +165,6 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Templates\bio.html" />
-    <Content Include="Templates\contact.html" />
-    <Content Include="Templates\loading.html" />
     <Content Include="Templates\photos.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

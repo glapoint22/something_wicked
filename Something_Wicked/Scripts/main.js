@@ -11,7 +11,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     ]);
     $routeProvider
         .when('/videos/:id', {
-            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%"></iframe>',
+            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%" style="border: none"></iframe>',
             controller: 'VideoController'
         })
         .when('/photos/:id', {
@@ -21,10 +21,6 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
         .when('/bios/:name', {
             templateUrl: 'Templates/bio.html',
             controller: 'BiosController'
-        })
-        .when('/contact', {
-            templateUrl: 'Templates/contact.html',
-            controller: 'ContactController'
         })
         .otherwise({
             redirectTo: '/'
