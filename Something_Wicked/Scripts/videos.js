@@ -23,7 +23,8 @@ app.controller('VideoController', ['$scope', '$http', '$location', '$routeParams
         params: {
             groupID: $routeParams.id
         }
-    }).then(function (response) {
+    //Success
+    }).then(function success(response) {
         //Initialize the properties and variables
         $scope.videos = response.data.videos;
         $scope.contentWindow.title = response.data.title;
@@ -55,6 +56,9 @@ app.controller('VideoController', ['$scope', '$http', '$location', '$routeParams
             $location.search('video', $scope.videos[$scope.index].id);
             $scope.iframe.attr('src', $scope.videos[$scope.index].url);
         }
+    //Fail
+    }, function fail(response) {
+        $location.path('/');
     });
 
     //Set the video based on which arrow was pressed

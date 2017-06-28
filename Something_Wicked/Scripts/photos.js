@@ -46,6 +46,7 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
             //No image in the url so set as the first image in the list
             $location.search('img', response.data.list[0]);
             xPos = 0;
+            $scope.contentWindow.itemIndex = 0;
         } else {
             //Make sure this image exists
             $scope.contentWindow.itemIndex = response.data.list.indexOf(searchObject.img);

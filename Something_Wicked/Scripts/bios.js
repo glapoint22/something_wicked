@@ -15,7 +15,8 @@ app.controller('BiosController', ['$scope', '$sce', '$http', '$routeParams', '$l
         params: {
             name: $routeParams.name
         }
-    }).then(function (response) {
+    //Success
+    }).then(function success(response) {
         //If there is no bio
         if (response.data.bio === null) {
             $location.path('/');
@@ -29,5 +30,8 @@ app.controller('BiosController', ['$scope', '$sce', '$http', '$routeParams', '$l
         $scope.thumbnail = response.data.thumbnail;
 
         $scope.contentWindow.show = true;
+    //fail
+    }, function fail(response) {
+        $location.path('/');
     });
 }]);

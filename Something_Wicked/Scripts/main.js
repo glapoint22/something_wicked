@@ -29,7 +29,7 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
         });
 }]);
 //-------------------------------------------------------------------------------------Main Controller-------------------------------------------------------------------------------------
-app.controller('MainController', ['$scope', '$timeout', '$http', '$q', function ($scope, $timeout, $http, $q) {
+app.controller('MainController', ['$scope', '$timeout', '$http', '$q', '$location', function ($scope, $timeout, $http, $q, $location) {
     $scope.showMobileMenuDropdown = false;
 
     $scope.menuClick = function () {
@@ -44,6 +44,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', '$q', function 
 
     //Function used for scrolling to the sections on the page
     $scope.scrollTo = function (id) {
+        $location.path('/');
         var yOffset = id === 'top' ? 80 : 70,
             duration = 500,
             element = document.getElementById(id),

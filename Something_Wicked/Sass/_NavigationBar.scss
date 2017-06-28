@@ -50,7 +50,7 @@
     width: 100%; 
     @include gradient($color3, $color2);
     position: fixed; 
-    z-index: 10; 
+    z-index: 600; 
     font-size: 20px; 
     overflow: hidden; 
     color: $color1;

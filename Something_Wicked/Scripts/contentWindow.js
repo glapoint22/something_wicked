@@ -6,7 +6,7 @@ app.controller('ContentWindowController', ['$scope', '$location', function ($sco
         load: false,
         itemIndex: 0
     };
-
+    //Close the content window
     $scope.close = function () {
         $scope.contentWindow.show = false;
         $location.path('/');
@@ -17,6 +17,7 @@ app.controller('ContentWindowController', ['$scope', '$location', function ($sco
         $event.preventDefault();
     }
 
+    //Show the content window
     $scope.showContentWindow = function () {
         if ($location.url() === '/') $scope.contentWindow.show = false;
         return $scope.contentWindow.show;

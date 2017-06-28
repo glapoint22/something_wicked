@@ -19,7 +19,9 @@
     }
     .window{
         width: 800px;
-        height: 600px; 
+        height: 600px;
+        position: relative;
+        top: 2vh;
     }
     .title-bar{
         position: relative; 
@@ -92,9 +94,9 @@
 
     @media screen and (orientation: landscape) and (max-height: 800px){
         .window{
-             width: 90vh;
-            height: 70vh;
-           
+            width: 90vh;
+            height: 65vh;
+            top: 5vh;
         }
     }
 }
