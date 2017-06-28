@@ -9,16 +9,3 @@
     @include transition-timing(0.3s);
     height: 100%;
 }
-#photos-slider{
-    .img-arrow-circle{
-        top: 50%;
-        &.img-arrow-circle-left{
-            left: 3%;
-        }
-        &.img-arrow-circle-right{
-            right: 3%;
-        }
-    }
-}
-
-

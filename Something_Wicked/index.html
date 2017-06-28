@@ -41,7 +41,10 @@
         <!--Showcase Images-->
         <div ng-controller="ShowcaseController">
             <div class="showcase-img-container" set-height>
-                <div ng-repeat="image in images" class="showcase-img ng-hide" back-img="{{image}}" ng-show="currentImage === $index"></div>
+                <div class="loading" ng-show="showcaseLoad">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                </div>
+                <img ng-repeat="image in images" class="showcase-img ng-hide" ng-src="{{image}}" ng-show="currentImage === $index" check-showcase-loading/>
 
                 <!--Left arrow-->
                 <div class="img-arrow-circle" style="left: 3%" ng-click="setImage(-1)">
@@ -90,7 +93,7 @@
                         <td>{{song.artist | uppercase}}</td>
                         <td>{{song.genre | uppercase}}</td>
                         <td>
-                            <span ng-show="song.videoID !== ''" ng-click="showVideo(song.videoID)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
+                            <span ng-show="song.videoID !== ''" ng-click="showVideo(song.videoGroup, song.videoID)"><i style="color: #ea3516; font-size:30px" class="fa fa-youtube-play" aria-hidden="true"></i></span>
                         </td>
                     </tr>
                 </table>
@@ -103,7 +106,7 @@
                     <div class="section-title">VIDEOS</div>
                     <ul>
                         <li ng-repeat="video in videos">
-                            <div ng-click="showVideo(video.id)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
+                            <div ng-click="showVideos(video.id)" class="icon"><img ng-src="{{video.thumbnail}}" /></div>
                             <div class="title-bar">
                                 <div class="title">{{video.title | uppercase}}</div>
                             </div>

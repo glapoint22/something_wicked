@@ -2,6 +2,7 @@
 app.controller('ShowcaseController', ['$scope', '$interval', function ($scope, $interval) {
     var nextImg;
     $scope.currentImage = 0;
+    $scope.showcaseLoad = false;
 
     //Get an array of images that will be displayed in the showcase
     $scope.deferred.promise.then(function (response) {
@@ -62,13 +63,23 @@ app.directive('setHeight', function () {
             }
         }
     }
-})
-//------------------------------------------------------------------------------Back Img Directive-------------------------------------------------------------------------------------
-app.directive('backImg', function () {
-    return function (scope, element, attrs) {
-        var url = attrs.backImg;
-        element.css({
-            'background-image': 'url(' + url + ')',
-        });
+});
+//-----------------------------------------------------------------------------------Check Showcase Loading Directive-------------------------------------------------------------------------------------
+app.directive('checkShowcaseLoading', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            scope.$watch('currentImage === $index', function (newValue, oldValue) {
+                if (newValue) {
+                    if (!element[0].complete) scope.$parent.showcaseLoad = true;
+                }
+            });
+            element.on('load', function () {
+                if (scope.currentImage === scope.$index) {
+                    scope.$parent.showcaseLoad = false;
+                    scope.$apply();
+                }
+            });
+        }
     };
 });

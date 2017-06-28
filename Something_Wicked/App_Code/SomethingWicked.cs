@@ -41,7 +41,7 @@ public class SomethingWicked : WebService
             //Get the data
             data.shows = GetSchedule(con, cmd);
             data.songs = GetSongs(con, cmd);
-            data.videos = GetVideos(con, cmd);
+            data.videos = GetVideoGroups(con, cmd);
             data.photos = GetDisplayPhotos(con, cmd);
             data.members = GetMembers(con, cmd);
 
@@ -90,7 +90,7 @@ public class SomethingWicked : WebService
     private List<Song> GetSongs(SqlConnection con, SqlCommand cmd)
     {
         List<Song> songs = new List<Song>();
-        cmd.CommandText = "GetMusic";
+        cmd.CommandText = "GetSongs";
         SqlDataReader rdr = cmd.ExecuteReader();
 
         while (rdr.Read())
@@ -99,6 +99,7 @@ public class SomethingWicked : WebService
             song.name = rdr["Song"].ToString();
             song.artist = rdr["Artist"].ToString();
             song.genre = rdr["Genre"].ToString();
+            song.videoGroup = rdr["videoGroup"].ToString();
             song.videoID = rdr["videoID"].ToString();
             songs.Add(song);
         }
@@ -108,10 +109,10 @@ public class SomethingWicked : WebService
     }
 
 
-    private List<Media> GetVideos(SqlConnection con, SqlCommand cmd)
+    private List<Media> GetVideoGroups(SqlConnection con, SqlCommand cmd)
     {
         List<Media> videos = new List<Media>();
-        cmd.CommandText = "GetVideos";
+        cmd.CommandText = "GetVideoGroups";
         SqlDataReader rdr = cmd.ExecuteReader();
 
         while (rdr.Read())
@@ -119,7 +120,7 @@ public class SomethingWicked : WebService
             Media video = new Media();
             video.id = rdr["ID"].ToString();
             video.title = rdr["Title"].ToString();
-            video.thumbnail = string.Format("http://img.youtube.com/vi/{0}/hqdefault.jpg", video.id);
+            video.thumbnail = string.Format("http://img.youtube.com/vi/{0}/hqdefault.jpg", rdr["Thumbnail"].ToString());
             videos.Add(video);
         }
 
@@ -240,35 +241,39 @@ public class SomethingWicked : WebService
 
 
     [WebMethod]
-    public void GetVideo(string id)
+    public void GetVideos(string groupID)
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-        Video video = new Video();
+        List<Video> videoList = new List<Video>();
+        Videos videos = new Videos();
 
         using (SqlConnection con = new SqlConnection(cs))
         {
             con.Open();
 
-            SqlCommand cmd = new SqlCommand("GetVideo", con);
+            SqlCommand cmd = new SqlCommand("GetVideos", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = id;
+            cmd.Parameters.Add("@groupID", SqlDbType.VarChar).Value = groupID;
 
             SqlDataReader rdr = cmd.ExecuteReader();
 
             while (rdr.Read())
             {
-                video.title = rdr["Title"].ToString();
-                video.url = string.Format("https://www.youtube.com/embed/{0}?autoplay=1", rdr["ID"].ToString());
+                Video video = new Video();
+                video.id = rdr["ID"].ToString();
+                video.url = string.Format("https://www.youtube.com/embed/{0}", rdr["ID"].ToString());
+                videos.title = rdr["Title"].ToString();
+                videoList.Add(video);
             }
 
             con.Close();
         }
 
+        videos.videos = videoList;
+
         JavaScriptSerializer js = new JavaScriptSerializer();
-        Context.Response.Write(js.Serialize(video));
+        Context.Response.Write(js.Serialize(videos));
     }
-
-
 }
 
 
@@ -286,6 +291,7 @@ public struct Song
     public string name;
     public string artist;
     public string genre;
+    public string videoGroup;
     public string videoID;
 }
 
@@ -322,6 +328,11 @@ public struct Member
 }
 public struct Video
 {
-    public string title;
+    public string id;
     public string url;
+}
+public struct Videos
+{
+    public string title;
+    public List<Video> videos;
 }

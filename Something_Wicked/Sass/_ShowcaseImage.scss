@@ -7,7 +7,8 @@
     position: relative;
     .showcase-img{
         position: absolute;
-        background-size: cover; 
+        object-fit: cover;
+        object-position: 0 0;
         height: 100%; 
         width: 100%;
         @include transition-timing(0.5s);
@@ -15,22 +16,4 @@
             opacity: 0;
         }
     }
-}
-.img-arrow-circle{
-    line-height: 40px; 
-    text-align: center; 
-    width:40px; 
-    height: 40px; 
-    background: rgba(0, 0, 0, 0.5); 
-    position: absolute; 
-    top: 22vw;
-    border-radius: 50%; 
-    cursor: pointer;
-    color: $color5;
-}
-.img-arrow-circle:hover{
-    background-color: rgba(117, 117, 117, 0.50); 
-}
-.img-arrow-circle:active{
-    background-color: rgba(43, 68, 103, 0.50);
 }

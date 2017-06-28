@@ -60,7 +60,38 @@ iframe{
 .fa-spinner{
     color: $color5;
 }
-
+.img-arrow-circle{
+    line-height: 40px; 
+    text-align: center; 
+    width:40px; 
+    height: 40px; 
+    background: $color2;
+    position: absolute; 
+    top: 22vw;
+    border-radius: 50%; 
+    cursor: pointer;
+    color: $color5;
+}
+.img-arrow-circle:hover{
+    background-color: #507ebe;
+}
+.img-arrow-circle:active{
+    background-color: rgba(43, 68, 103, 0.50);
+}
+.loading{
+    background: black; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    z-index: 500;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    @include transition-timing(0.2s);
+    &.ng-hide{
+        opacity: 0;
+    }
+}
 @media screen and (max-width: 767px) {
     th{
         font-size: 15px;

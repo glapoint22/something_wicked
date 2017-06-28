@@ -10,9 +10,10 @@ app.config(['$routeProvider', '$locationProvider', '$sceDelegateProvider', funct
     'https://www.youtube.com/**'
     ]);
     $routeProvider
-        .when('/videos/:id', {
-            template: '<iframe allowfullscreen src="{{url}}" width="100%" height="100%" style="border: none"></iframe>',
-            controller: 'VideoController'
+        .when('/videos/:id?', {
+            templateUrl: 'Templates/videos.html',
+            controller: 'VideoController',
+            reloadOnSearch: false
         })
         .when('/photos/:id?', {
             templateUrl: 'Templates/photos.html',

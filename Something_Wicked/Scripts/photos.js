@@ -13,7 +13,7 @@ app.controller('PhotosController', ['$scope', '$location', function ($scope, $lo
 }]);
 //-------------------------------------------------------------------------------------Slider Controller-------------------------------------------------------------------------------------
 app.controller('SliderController', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    var slider, xPos, i, searchObject, index;
+    var slider, xPos, i, searchObject;
 
     $http.get('SomethingWicked.asmx/GetPhotos', {
         params: {
@@ -40,7 +40,7 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
         slider = angular.element.find('.slider');
         $scope.contentWindow.show = true;
 
-        //Check to see if an image is the url
+        //Check to see if an image is in the url
         searchObject = $location.search();
         if (searchObject.img === undefined) {
             //No image in the url so set as the first image in the list
@@ -48,11 +48,15 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
             xPos = 0;
         } else {
             //Make sure this image exists
-            index = response.data.list.indexOf(searchObject.img);
-            if (index === -1) $location.path('/');
+            $scope.contentWindow.itemIndex = response.data.list.indexOf(searchObject.img);
+            if ($scope.contentWindow.itemIndex === -1) {
+                $location.path('/');
+                return;
+            }
+                
 
             //Go to the image in the url
-            xPos = index * -100;
+            xPos = $scope.contentWindow.itemIndex * -100;
             angular.element(slider).css({
                 'transform': 'translateX(' + xPos + '%)'
             });
@@ -84,3 +88,22 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
         });
     }
 }]);
+//-----------------------------------------------------------------------------------Check Photo Loading Directive-------------------------------------------------------------------------------------
+app.directive('checkPhotoLoading', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            scope.$watch('contentWindow.itemIndex === $index', function (newValue, oldValue) {
+                if (newValue) {
+                    if (!element[0].complete) scope.contentWindow.load = true;
+                }
+            });
+            element.on('load', function () {
+                if (scope.contentWindow.itemIndex === scope.$index) {
+                    scope.contentWindow.load = false;
+                    scope.$apply();
+                }
+            });
+        }
+    };
+});

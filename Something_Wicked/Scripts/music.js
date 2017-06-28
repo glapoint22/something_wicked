@@ -25,7 +25,8 @@ app.controller('MusicController', ['$scope', '$location', function ($scope, $loc
     }
 
     //Show the video in the content window
-    $scope.showVideo = function (id) {
-        $location.path('/videos/' + id);
+    $scope.showVideo = function (videoGroup, id) {
+        $location.path('/videos/' + videoGroup);
+        $location.search('video', id);
     }
 }]);

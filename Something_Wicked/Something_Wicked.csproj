@@ -165,6 +165,7 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Templates\bio.html" />
+    <Content Include="Templates\videos.html" />
     <Content Include="Templates\photos.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -28,11 +28,11 @@ ALTER TABLE Songs ADD PRIMARY KEY (Song)
 alter table songs alter column genreid int not null
 
 
-CREATE PROC GetMusic
+CREATE PROC GetSongs
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT Song, Artist, Genre, videoID
+	SELECT Song, Artist, Genre, videoGroup, videoID
 	FROM Songs
 	INNER JOIN Genres ON 
 	Songs.GenreID = Genres.ID

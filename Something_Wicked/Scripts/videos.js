@@ -9,27 +9,73 @@ app.controller('VideosController', ['$scope', '$location', function ($scope, $lo
     
 
     //Show the video in the content window
-    $scope.showVideo = function (id) {
+    $scope.showVideos = function (id) {
         $location.path('/videos/' + id);
     }
 }]);
 //-------------------------------------------------------------------------------------Video Controller-------------------------------------------------------------------------------------
 app.controller('VideoController', ['$scope', '$http', '$location', '$routeParams', function ($scope, $http, $location, $routeParams) {
-    //Get the bio
-    $http.get('SomethingWicked.asmx/GetVideo', {
+    $scope.index = 0;
+    $scope.iframe = angular.element(document.body).find('iframe');
+
+    //Get the videos
+    $http.get('SomethingWicked.asmx/GetVideos', {
         params: {
-            id: $routeParams.id
+            groupID: $routeParams.id
         }
     }).then(function (response) {
-        //If there is no url
-        if (response.data.url === null) {
-            $location.path('/');
-            return;
-        }
-
-        //Set the title and the video url
+        //Initialize the properties and variables
+        $scope.videos = response.data.videos;
         $scope.contentWindow.title = response.data.title;
-        $scope.url = response.data.url;
         $scope.contentWindow.show = true;
+
+        //Check to see if the video id is in the url
+        searchObject = $location.search();
+        if (searchObject.video === undefined) {
+            //No video id in the url so set as the first video in the list
+            $location.search('video', $scope.videos[0].id);
+            $scope.iframe.attr('src', $scope.videos[0].url);
+        } else {
+            //Make sure this video exists
+            $scope.index = -1;
+            angular.forEach($scope.videos, function (value, key) {
+                if (searchObject.video === value.id) {
+                    $scope.index = key;
+                    return;
+                }
+            });
+
+            //If no video id is found, return
+            if ($scope.index === -1) {
+                $location.path('/');
+                return;
+            }
+
+            //Set the video
+            $location.search('video', $scope.videos[$scope.index].id);
+            $scope.iframe.attr('src', $scope.videos[$scope.index].url);
+        }
     });
+
+    //Set the video based on which arrow was pressed
+    $scope.setVideo = function (dir) {
+        $scope.contentWindow.load = true;
+        $scope.index += dir;
+
+        $location.search('video', $scope.videos[$scope.index].id);
+        $scope.iframe.attr('src', $scope.videos[$scope.index].url);
+    }
 }]);
+//-------------------------------------------------------------------------------------Check Video Loading-------------------------------------------------------------------------------------
+app.directive('checkVideoLoading', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            scope.contentWindow.load = true;
+            element.on('load', function () {
+                scope.contentWindow.load = false;
+                scope.$apply();
+            });
+        }
+    };
+});
