@@ -9,6 +9,7 @@ app.controller('ContentWindowController', ['$scope', '$location', function ($sco
     //Close the content window
     $scope.close = function () {
         $scope.contentWindow.show = false;
+        $scope.contentWindow.load = false;
         $location.path('/');
     }
 

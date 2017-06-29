@@ -37,7 +37,7 @@
       <Objects>
         <ObjectGroup Name="DBCS-Deployment" Order="1">
           <Destination Path="Data Source=184.168.194.53%3bInitial Catalog=Something_Wicked%3bPersist Security Info=True%3bUser ID=glapoint22%3bPassword=Cyb668622!" />
-          <Object Type="DbFullSql">
+          <Object Type="DbFullSql" Enabled="False">
             <PreSource Path="Data Source=zorioth\sqlexpress%3bInitial Catalog=Something Wicked%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
             <Source Path="obj\Debug\AutoScripts\DBCS-Deployment_SchemaAndData.sql" Transacted="True" />
           </Object>
@@ -45,6 +45,7 @@
       </Objects>
     </PublishDatabaseSettings>
     <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,9 +56,17 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
+        <ObjectGroup Name="DBCS-Deployment" Order="1" xmlns="">
+          <Destination Path="Data Source=184.168.194.53%3bInitial Catalog=Something_Wicked%3bPersist Security Info=True%3bUser ID=glapoint22%3bPassword=Cyb668622!" />
+          <Object Type="DbFullSql" Enabled="False">
+            <PreSource Path="Data Source=zorioth\sqlexpress%3bInitial Catalog=Something Wicked%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\DBCS-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
     <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -120,7 +129,7 @@
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults" />
-    <None Include="Properties\PublishProfiles\somethingwickedrocks.com - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Something Wicked.pubxml" />
     <None Include="Sass\main.scss" />
     <None Include="Sass\_Bio.scss" />
     <None Include="Sass\_ContentWindow.scss" />
