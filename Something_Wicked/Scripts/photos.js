@@ -13,7 +13,7 @@ app.controller('PhotosController', ['$scope', '$location', function ($scope, $lo
 }]);
 //-------------------------------------------------------------------------------------Slider Controller-------------------------------------------------------------------------------------
 app.controller('SliderController', ['$scope', '$http', '$routeParams', '$location', function ($scope, $http, $routeParams, $location) {
-    var slider, xPos, i, searchObject;
+    var slider, xPos, img;
 
     $http.get('SomethingWicked.asmx/GetPhotos', {
         params: {
@@ -21,6 +21,8 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
         }
     //Success
     }).then(function success(response) {
+        var i, searchObject;
+
         //If there were no images
         if (response.data.list.length === 0) {
             $location.path('/');
@@ -44,12 +46,20 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
         searchObject = $location.search();
         if (searchObject.img === undefined) {
             //No image in the url so set as the first image in the list
-            $location.search('img', response.data.list[0]);
+            img = response.data.list[0].replace(/\.\w+/g, "");
+            $location.search('img', img);
             xPos = 0;
             $scope.contentWindow.itemIndex = 0;
         } else {
             //Make sure this image exists
-            $scope.contentWindow.itemIndex = response.data.list.indexOf(searchObject.img);
+            $scope.contentWindow.itemIndex = -1;
+            for (i = 0; i < response.data.list.length; i++) {
+                if (searchObject.img === response.data.list[i].replace(/\.\w+/g, "")) {
+                    $scope.contentWindow.itemIndex = i;
+                    break;
+                }
+            }
+
             if ($scope.contentWindow.itemIndex === -1) {
                 $location.path('/');
                 return;
@@ -81,7 +91,8 @@ app.controller('SliderController', ['$scope', '$http', '$routeParams', '$locatio
         //Set the index of the current item
         $scope.contentWindow.itemIndex = Math.abs((xPos / 100) * -1);
 
-        $location.search('img', $scope.list[$scope.contentWindow.itemIndex]);
+        img = $scope.list[$scope.contentWindow.itemIndex].replace(/\.\w+/g, "");
+        $location.search('img', img);
 
         //Translate the slider
         angular.element(slider).css({

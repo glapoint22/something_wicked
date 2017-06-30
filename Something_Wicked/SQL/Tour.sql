@@ -36,11 +36,22 @@ CREATE PROC GetSchedule
 AS
 BEGIN
 	SET NOCOUNT ON
-	SELECT DateTime, Name as Venue, Location, URL, Duration
+	SELECT DATEADD(hour, -3, DateTime) as DateTime, Name as Venue, Location, URL, Duration
 	FROM Schedule
 	INNER JOIN Venues ON
 	Schedule.VenueID = Venues.ID
-	WHERE datetime > CONVERT (DATE, GETDATE())
+	WHERE datetime > CONVERT (DATE, DATEADD(hour, 3, GETDATE()))
 END
 
-select * from Venues
+
+drop proc GetSchedule
+exec GetSchedule
+
+
+
+
+
+
+	
+
+	

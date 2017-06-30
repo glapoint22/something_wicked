@@ -39,12 +39,12 @@ app.controller('VideoController', ['$scope', '$http', '$location', '$routeParams
         } else {
             //Make sure this video exists
             $scope.index = -1;
-            angular.forEach($scope.videos, function (value, key) {
-                if (searchObject.video === value.id) {
-                    $scope.index = key;
-                    return;
+            for (var i = 0; i < $scope.videos.length; i++) {
+                if (searchObject.video === $scope.videos[i].id) {
+                    $scope.index = i;
+                    break;
                 }
-            });
+            }
 
             //If no video id is found, return
             if ($scope.index === -1) {
