@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="karma.conf.js" />
     <Content Include="manager.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
@@ -125,6 +126,7 @@
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults" />
+    <Content Include="package.json" />
     <None Include="Properties\PublishProfiles\Something Wicked.pubxml" />
     <None Include="Sass\main.scss" />
     <None Include="Sass\_Bio.scss" />
@@ -166,6 +168,7 @@
     <None Include="SQL\Tour.sql" />
     <None Include="SQL\Videos.sql" />
     <None Include="style.css" />
+    <Content Include="specs\MusicControllerSpec.js" />
     <Content Include="style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>

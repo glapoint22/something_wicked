@@ -6,7 +6,7 @@ app.controller('PhotosController', ['$scope', '$location', function ($scope, $lo
     });
     
     //Show the photos in the content window
-    $scope.showPhotos = function (id, title) {
+    $scope.showPhotos = function (id) {
         //Set the url as photos
         $location.path('/photos/' + id);
     }
