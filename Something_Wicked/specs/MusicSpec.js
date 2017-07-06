@@ -1,34 +1,44 @@
-describe('MusicController', function () {
+describe('Music', function () {
     beforeEach(module('somethingWicked'));
 
-    var $controller, scope, $rootScope, $q, sortClass;
+    var $controller, scope, $rootScope, $q, sortClass, $location;
 
-    beforeEach(inject(function (_$controller_, _$rootScope_, _$q_) {
+    beforeEach(inject(function (_$controller_, _$rootScope_, _$q_, _$location_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
         $rootScope = _$rootScope_;
         $q = _$q_;
+        $location = _$location_;
         scope = $rootScope.$new();
         scope.deferred = $q.defer();
-        $controller('MusicController', { $scope: scope });
+        $controller('MusicController', { $scope: scope, $location: $location});
     }));
 
 
-    describe('songs', function () {
-        
-        beforeEach(function () {
-            scope.deferred.resolve({ songs: ['Song1', 'Song2'] });
-            scope.$apply();
+    
+    it('Songs should have the correct data', function () {
+        scope.deferred.resolve({
+            songs: [{
+                artist: 'Artist1',
+                genre: 'Genre1',
+                name: 'Song1',
+                videoGroup: 'abc',
+                videoID: 'def'
+            }]
         });
-        it('Songs should be defined', function () {
-            expect(scope.songs).toBeDefined();
-        });
-    });
+        scope.$apply();
 
-    describe('sort', function () {
+        expect(scope.songs[0].artist).toBe('Artist1');
+        expect(scope.songs[0].genre).toBe('Genre1');
+        expect(scope.songs[0].name).toBe('Song1');
+        expect(scope.songs[0].videoGroup).toBe('abc');
+        expect(scope.songs[0].videoID).toBe('def');
+    });
+    
+
+    describe('Sort function', function () {
         beforeEach(function () {
             scope.sort('myColumn');
-            sortClass = scope.getSortClass('myColumn');
         });
 
 
@@ -43,16 +53,15 @@ describe('MusicController', function () {
     });
 
 
-    describe('getSortClass', function () {
-        beforeEach(function () {
+    describe('GetSortClass function', function () {
+        it('Returns the css class "arrow-up" when a column is first clicked', function () {
             scope.sort('myColumn');
             sortClass = scope.getSortClass('myColumn');
-        });
-        it('Returns the css class "arrow-up" when a column is first clicked', function () {
             expect(sortClass).toBe('arrow-up');
         });
 
         it('Returns the css class "arrow-down" when the column is clicked again', function () {
+            scope.sort('myColumn');
             scope.sort('myColumn');
             sortClass = scope.getSortClass('myColumn');
             expect(sortClass).toBe('arrow-down');
@@ -64,16 +73,11 @@ describe('MusicController', function () {
             sortClass = scope.getSortClass('myColumn');
             expect(sortClass).toBe('');
         });
-
-
     });
 
-    describe('showVideo', function () {
-        var videoGroup = 'abc', id = 'def', $location;
 
-        beforeEach(inject(function (_$location_) {
-            $location = _$location_;
-        }));
+    describe('ShowVideo function', function () {
+        var videoGroup = 'abc', id = 'def';
 
         it('Sets the url to the video that was clicked', function () {
             scope.showVideo(videoGroup, id);

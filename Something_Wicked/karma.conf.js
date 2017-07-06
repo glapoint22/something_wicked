@@ -15,11 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+        'https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js',
         'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js',
         'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.min.js',
         'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js',
         'https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-mocks.js',
-        'somethingWicked.min.js',
+        'somethingWicked.js',
         'specs/*.js'
     ],
 
@@ -38,7 +39,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['kjhtml', 'progress'],
+    reporters: ['progress', 'kjhtml'],
 
 
     // web server port

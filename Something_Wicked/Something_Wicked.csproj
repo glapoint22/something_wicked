@@ -168,7 +168,10 @@
     <None Include="SQL\Tour.sql" />
     <None Include="SQL\Videos.sql" />
     <None Include="style.css" />
-    <Content Include="specs\MusicControllerSpec.js" />
+    <Content Include="specs\BiosSpec.js" />
+    <Content Include="specs\ContentWindowSpec.js" />
+    <Content Include="specs\MusicSpec.js" />
+    <Content Include="specs\PhotosSpec.js" />
     <Content Include="style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
