@@ -9,6 +9,7 @@ describe('Photos', function () {
         $location = _$location_;
     }));
 
+    //PhotosController
     describe('PhotosController', function () {
         beforeEach(inject(function (_$q_) {
             $scope.deferred = _$q_.defer();
@@ -18,6 +19,7 @@ describe('Photos', function () {
         beforeEach(function () {
             $controller('PhotosController', { $scope: $scope, $location: $location });
         });
+
 
         it('Sets the photos', function () {
             $scope.deferred.resolve({
@@ -36,7 +38,7 @@ describe('Photos', function () {
 
 
         describe('showPhotos function', function () {
-            it('Sets the url to the photo that was clicked', function () {
+            it('Sets the url to the photo container that was clicked, e.g. /photos/062417', function () {
                 $scope.showPhotos('062417');
                 expect($location.url()).toBe('/photos/062417');
             });
@@ -46,9 +48,7 @@ describe('Photos', function () {
 
 
 
-
-
-
+    //SliderController
     describe('SliderController', function () {
         var $httpBackend, response, authRequestHandler, $routeParams = {};
 
@@ -80,57 +80,59 @@ describe('Photos', function () {
 
             authRequestHandler = $httpBackend.whenGET('SomethingWicked.asmx/GetPhotos').respond(response);
             $routeParams.id = '062417';
+            $location.path('/photos/062417/');
         });
 
 
 
-
+        //Specs
         it('Should redirect to root if the image list is empty', function () {
-            $location.path('/photos/062417/');
             response.list = [];
             $httpBackend.flush();
             expect($location.url()).toEqual('/');
         });
 
-        it('Should set the photo properties correctly', function () {
+        it('Sets the photo properties', function () {
             $httpBackend.flush();
             expect($scope.list).toEqual([
                 'img1.jpg',
                 'img2.jpg',
                 'img3.jpg'
             ]);
-            
             expect($scope.photos).toEqual([
                 '/Images/Photos/062417/img1.jpg',
                 '/Images/Photos/062417/img2.jpg',
                 '/Images/Photos/062417/img3.jpg'
             ]);
+        });
 
+
+
+        it('Sets the content window title to the photo container\'s title', function () {
+            $httpBackend.flush();
             expect($scope.contentWindow.title).toBe('My Photos');
         });
 
-        it('Should show the content window', function () {
+
+        it('Shows the content window', function () {
             $httpBackend.flush();
             expect($scope.contentWindow.show).toBeTruthy();
         });
 
         it('Should display the first image when an image is NOT specified in the query string', function () {
-            $location.path('/photos/062417/');
             $httpBackend.flush();
             expect($location.url()).toEqual('/photos/062417?img=img1');
             expect($scope.contentWindow.itemIndex).toEqual(0);
         });
 
         it('Should display the image that is specified in the query string', function () {
-            $location.path('/photos/062417/');
             $location.search('img', 'img2');
             $httpBackend.flush();
             expect($location.url()).toEqual('/photos/062417?img=img2');
             expect($scope.contentWindow.itemIndex).toEqual(1);
         });
 
-        it('Should redirect to root if image specified in the query string is invalid', function () {
-            $location.path('/photos/062417/');
+        it('Should redirect to root if the image specified in the query string is invalid', function () {
             $location.search('img', 'img5');
             $httpBackend.flush();
             expect($location.url()).toEqual('/');
@@ -138,20 +140,39 @@ describe('Photos', function () {
         });
 
         it('Should redirect to root if the http request failed', function () {
-            $location.path('/photos/062417/');
             authRequestHandler.respond(500, '');
             $httpBackend.flush();
             expect($location.url()).toEqual('/');
         });
 
         describe('moveSlider function', function () {
-
+            it('Should go to the next image in the list when going forward', function () {
+                $httpBackend.flush();
+                $scope.moveSlider(-1);
+                expect($location.url()).toEqual('/photos/062417?img=img2');
+                expect($scope.contentWindow.itemIndex).toEqual(1);
+            });
+            it('Should go to the previous image in the list when going backward', function () {
+                $httpBackend.flush();
+                $scope.moveSlider(-1);
+                $scope.moveSlider(1);
+                expect($location.url()).toEqual('/photos/062417?img=img1');
+                expect($scope.contentWindow.itemIndex).toEqual(0);
+            });
+            it('Should NOT go any further than the first image when going backward', function () {
+                $httpBackend.flush();
+                $scope.moveSlider(1);
+                expect($location.url()).toEqual('/photos/062417?img=img1');
+                expect($scope.contentWindow.itemIndex).toEqual(0);
+            });
+            it('Should NOT go any further than the last image when going forward', function () {
+                $httpBackend.flush();
+                $scope.moveSlider(-1);
+                $scope.moveSlider(-1);
+                $scope.moveSlider(-1);
+                expect($location.url()).toEqual('/photos/062417?img=img3');
+                expect($scope.contentWindow.itemIndex).toEqual(2);
+            });
         });
     });
-
-
-
-
-
-
 });

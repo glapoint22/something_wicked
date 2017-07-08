@@ -9,6 +9,7 @@ describe('Bios', function () {
         $location = _$location_;
     }));
 
+    //MembersController
     describe('MembersController', function () {
         beforeEach(inject(function (_$q_) {
             $scope.deferred = _$q_.defer();
@@ -19,7 +20,7 @@ describe('Bios', function () {
             $controller('MembersController', { $scope: $scope, $location: $location });
         });
 
-        it('Members should get the correct data', function () {
+        it('Sets the members', function () {
             $scope.deferred.resolve({
                 members: [{
                     id: 1,
@@ -36,18 +37,20 @@ describe('Bios', function () {
 
 
         describe('showBio function', function () {
-            it('Sets the url to the member that was clicked', function () {
+            it('Sets the url to the member that was clicked, e.g. /bios/amy', function () {
                 $scope.showBio('member');
                 expect($location.url()).toBe('/bios/member');
             });
         });
     });
 
+    //BiosController
     describe('BiosController', function () {
-        var $httpBackend, response, $sce, respond;
+        var $httpBackend, response, $sce, authRequestHandler;
 
-        beforeEach(inject(function (_$httpBackend_) {
+        beforeEach(inject(function (_$httpBackend_, _$sce_) {
             $httpBackend = _$httpBackend_;
+            $sce = _$sce_;
         }));
 
         afterEach(function () {
@@ -56,12 +59,8 @@ describe('Bios', function () {
         });
 
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$sce_, _$location_) {
-            $sce = _$sce_;
-            $controller('BiosController', { $scope: $scope, $sce: $sce, $location: $location });
-        }));
-
         beforeEach(function () {
+            $controller('BiosController', { $scope: $scope, $sce: $sce, $location: $location });
             $scope.contentWindow = {
                 show: false,
                 title: '',
@@ -75,22 +74,11 @@ describe('Bios', function () {
                 thumbnail: 'Images/Member_Thumbnails/Member.png'
             }
 
-            respond  = $httpBackend.whenGET('SomethingWicked.asmx/GetBio').respond(response);
+            authRequestHandler = $httpBackend.whenGET('SomethingWicked.asmx/GetBio').respond(response);
         });
 
-        it('Content window gets the correct data', function () {
-            $httpBackend.flush();
-            expect($scope.thumbnail).toBe('Images/Member_Thumbnails/Member.png');
-            expect($scope.contentWindow.title).toBe('Member Name');
-            expect($scope.bio.toString()).toEqual($sce.trustAsHtml('Member bio').toString());
-        });
-
-        it('Content window is shown', function () {
-            $httpBackend.flush();
-            expect($scope.contentWindow.show).toBeTruthy();
-        });
-
-        it('If bio is null, page will redirect to the root', function () {
+        //Specs
+        it('Should redirect to root if there is no bio data', function () {
             $location.path('/bios/member');
             response.bio = null;
             $httpBackend.flush();
@@ -98,9 +86,28 @@ describe('Bios', function () {
         });
 
 
-        it('If http request fails, page will redirect to the root', function () {
+        it('Sets the bio properties', function () {
+            $httpBackend.flush();
+            expect($scope.thumbnail).toBe('Images/Member_Thumbnails/Member.png');
+            expect($scope.bio.toString()).toEqual($sce.trustAsHtml('Member bio').toString());
+        });
+
+
+        it('Sets the content window title to the member\'s name', function () {
+            $httpBackend.flush();
+            expect($scope.contentWindow.title).toBe('Member Name');
+        });
+
+
+        it('Shows the content window', function () {
+            $httpBackend.flush();
+            expect($scope.contentWindow.show).toBeTruthy();
+        });
+
+
+        it('Should redirect to root if the http request failed', function () {
             $location.path('/bios/member');
-            respond.respond(500, '');
+            authRequestHandler.respond(500, '');
             $httpBackend.flush();
             expect($location.url()).toBe('/');
         });

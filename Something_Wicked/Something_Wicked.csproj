@@ -172,6 +172,7 @@
     <Content Include="specs\ContentWindowSpec.js" />
     <Content Include="specs\MusicSpec.js" />
     <Content Include="specs\PhotosSpec.js" />
+    <Content Include="specs\TourSpec.js" />
     <Content Include="style.min.css">
       <DependentUpon>style.css</DependentUpon>
     </Content>
